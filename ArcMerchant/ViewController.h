@@ -10,4 +10,20 @@
 
 @interface ViewController : UIViewController
 
+
+@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
+@property (nonatomic, strong) UITextField *username;
+@property (nonatomic, strong) UITextField *password;
+
+@property (nonatomic, strong) IBOutlet UITableView *myTableView;
+
+@property (nonatomic, strong) NSMutableData *serverData;
+
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
+
+@property BOOL autoSignIn;
+-(IBAction)signIn;
+
+
 @end

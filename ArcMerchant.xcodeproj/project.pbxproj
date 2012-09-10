@@ -1,0 +1,300 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		906C810F15FD6C990012AC9D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906C810E15FD6C990012AC9D /* UIKit.framework */; };
+		906C811115FD6C990012AC9D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906C811015FD6C990012AC9D /* Foundation.framework */; };
+		906C811315FD6C990012AC9D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906C811215FD6C990012AC9D /* CoreGraphics.framework */; };
+		906C811915FD6C990012AC9D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 906C811715FD6C990012AC9D /* InfoPlist.strings */; };
+		906C811B15FD6C990012AC9D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C811A15FD6C990012AC9D /* main.m */; };
+		906C811F15FD6C990012AC9D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C811E15FD6C990012AC9D /* AppDelegate.m */; };
+		906C812215FD6C990012AC9D /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 906C812015FD6C990012AC9D /* MainStoryboard_iPhone.storyboard */; };
+		906C812515FD6C990012AC9D /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 906C812315FD6C990012AC9D /* MainStoryboard_iPad.storyboard */; };
+		906C812815FD6C990012AC9D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C812715FD6C990012AC9D /* ViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		906C810A15FD6C990012AC9D /* ArcMerchant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArcMerchant.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		906C810E15FD6C990012AC9D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		906C811015FD6C990012AC9D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		906C811215FD6C990012AC9D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		906C811615FD6C990012AC9D /* ArcMerchant-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ArcMerchant-Info.plist"; sourceTree = "<group>"; };
+		906C811815FD6C990012AC9D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		906C811A15FD6C990012AC9D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		906C811C15FD6C990012AC9D /* ArcMerchant-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ArcMerchant-Prefix.pch"; sourceTree = "<group>"; };
+		906C811D15FD6C990012AC9D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		906C811E15FD6C990012AC9D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		906C812115FD6C990012AC9D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		906C812415FD6C990012AC9D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		906C812615FD6C990012AC9D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		906C812715FD6C990012AC9D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		906C810715FD6C990012AC9D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				906C810F15FD6C990012AC9D /* UIKit.framework in Frameworks */,
+				906C811115FD6C990012AC9D /* Foundation.framework in Frameworks */,
+				906C811315FD6C990012AC9D /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		906C80FF15FD6C990012AC9D = {
+			isa = PBXGroup;
+			children = (
+				906C811415FD6C990012AC9D /* ArcMerchant */,
+				906C810D15FD6C990012AC9D /* Frameworks */,
+				906C810B15FD6C990012AC9D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		906C810B15FD6C990012AC9D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				906C810A15FD6C990012AC9D /* ArcMerchant.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		906C810D15FD6C990012AC9D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				906C810E15FD6C990012AC9D /* UIKit.framework */,
+				906C811015FD6C990012AC9D /* Foundation.framework */,
+				906C811215FD6C990012AC9D /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		906C811415FD6C990012AC9D /* ArcMerchant */ = {
+			isa = PBXGroup;
+			children = (
+				906C811D15FD6C990012AC9D /* AppDelegate.h */,
+				906C811E15FD6C990012AC9D /* AppDelegate.m */,
+				906C812015FD6C990012AC9D /* MainStoryboard_iPhone.storyboard */,
+				906C812315FD6C990012AC9D /* MainStoryboard_iPad.storyboard */,
+				906C812615FD6C990012AC9D /* ViewController.h */,
+				906C812715FD6C990012AC9D /* ViewController.m */,
+				906C811515FD6C990012AC9D /* Supporting Files */,
+			);
+			path = ArcMerchant;
+			sourceTree = "<group>";
+		};
+		906C811515FD6C990012AC9D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				906C811615FD6C990012AC9D /* ArcMerchant-Info.plist */,
+				906C811715FD6C990012AC9D /* InfoPlist.strings */,
+				906C811A15FD6C990012AC9D /* main.m */,
+				906C811C15FD6C990012AC9D /* ArcMerchant-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		906C810915FD6C990012AC9D /* ArcMerchant */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 906C812B15FD6C990012AC9D /* Build configuration list for PBXNativeTarget "ArcMerchant" */;
+			buildPhases = (
+				906C810615FD6C990012AC9D /* Sources */,
+				906C810715FD6C990012AC9D /* Frameworks */,
+				906C810815FD6C990012AC9D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ArcMerchant;
+			productName = ArcMerchant;
+			productReference = 906C810A15FD6C990012AC9D /* ArcMerchant.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		906C810115FD6C990012AC9D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Nick Wroblewski";
+			};
+			buildConfigurationList = 906C810415FD6C990012AC9D /* Build configuration list for PBXProject "ArcMerchant" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 906C80FF15FD6C990012AC9D;
+			productRefGroup = 906C810B15FD6C990012AC9D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				906C810915FD6C990012AC9D /* ArcMerchant */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		906C810815FD6C990012AC9D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				906C811915FD6C990012AC9D /* InfoPlist.strings in Resources */,
+				906C812215FD6C990012AC9D /* MainStoryboard_iPhone.storyboard in Resources */,
+				906C812515FD6C990012AC9D /* MainStoryboard_iPad.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		906C810615FD6C990012AC9D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				906C811B15FD6C990012AC9D /* main.m in Sources */,
+				906C811F15FD6C990012AC9D /* AppDelegate.m in Sources */,
+				906C812815FD6C990012AC9D /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		906C811715FD6C990012AC9D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				906C811815FD6C990012AC9D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		906C812015FD6C990012AC9D /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				906C812115FD6C990012AC9D /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		906C812315FD6C990012AC9D /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				906C812415FD6C990012AC9D /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		906C812915FD6C990012AC9D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		906C812A15FD6C990012AC9D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		906C812C15FD6C990012AC9D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ArcMerchant/ArcMerchant-Prefix.pch";
+				INFOPLIST_FILE = "ArcMerchant/ArcMerchant-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		906C812D15FD6C990012AC9D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ArcMerchant/ArcMerchant-Prefix.pch";
+				INFOPLIST_FILE = "ArcMerchant/ArcMerchant-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		906C810415FD6C990012AC9D /* Build configuration list for PBXProject "ArcMerchant" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				906C812915FD6C990012AC9D /* Debug */,
+				906C812A15FD6C990012AC9D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		906C812B15FD6C990012AC9D /* Build configuration list for PBXNativeTarget "ArcMerchant" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				906C812C15FD6C990012AC9D /* Debug */,
+				906C812D15FD6C990012AC9D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 906C810115FD6C990012AC9D /* Project object */;
+}

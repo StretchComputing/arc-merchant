@@ -20,6 +20,9 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     
+    NSDictionary *loginDict = [[NSDictionary alloc] init];
+    ArcClient *client = [[ArcClient alloc] init];
+    [client getInvoiceList:loginDict];
     
 }
 -(void)viewWillAppear:(BOOL)animated{

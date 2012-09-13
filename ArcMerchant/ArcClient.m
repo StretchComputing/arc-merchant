@@ -62,7 +62,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
 
 -(void)createCustomer:(NSDictionary *)pairs{
     @try {
-       // [rSkybox addEventToSession:@"createCustomer"];
+        [rSkybox addEventToSession:@"createCustomer"];
         api = CreateCustomer;
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
@@ -156,6 +156,28 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.getInvoice" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+-(void)getInvoiceList:(NSDictionary *)pairs{
+    @try {
+        [rSkybox addEventToSession:@"getInvoiceList"];
+        api = GetInvoiceList;
+        
+        NSString *getInvoiceListUrl = [NSString stringWithFormat:@"%@Invoices", _arcUrl];
+        //NSLog(@"getInvoiceListUrl: %@", getInvoiceUrl);
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getInvoiceListUrl]];
+        [request setHTTPMethod: @"GET"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        
+        self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"GetInvoice"];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getInvoiceList" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -305,6 +327,11 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
                 responseInfo = [self getInvoiceResponse:response];
             }
             notificationType = @"invoiceNotification";
+        } else if(api == GetInvoiceList) {
+            if (response) {
+                responseInfo = [self getInvoiceListResponse:response];
+            }
+            notificationType = @"invoiceListNotification";
         } else if(api == CreatePayment) {
             if (response) {
                 responseInfo = [self createPaymentResponse:response];
@@ -560,6 +587,30 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
     }
 }
 
+-(NSDictionary *) getInvoiceListResponse:(NSDictionary *)response {
+    @try {
+        
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        if (success){
+            responseInfo = @{@"status": @"1",
+            @"apiResponse": response};
+        } else {
+            // TODO:: need to pass the Arc Application error to the calling method
+            NSString *message = [response valueForKey:@"Message"];
+            NSString *status = @"0";
+            
+            responseInfo = @{@"status": status,
+            @"error": message};
+        }
+        return responseInfo;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getInvoiceListResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
 -(NSDictionary *) createPaymentResponse:(NSDictionary *)response {
     @try {
         
@@ -728,16 +779,56 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
 
 
 -(void)setUrl:(NSDictionary *)response{
-    
-    if ([[response valueForKey:@"Success"] boolValue]) {
+    @try{
         
-        NSString *serverName = [response valueForKey:@"ServerName"];
-        
-        if (serverName && ([serverName length] > 0)) {
-            [[NSUserDefaults standardUserDefaults] setValue:serverName forKey:@"arcUrl"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+        if ([[response valueForKey:@"Success"] boolValue]) {
+            
+            NSString *serverName = [response valueForKey:@"ServerName"];
+            
+            if (serverName && ([serverName length] > 0)) {
+                [[NSUserDefaults standardUserDefaults] setValue:serverName forKey:@"arcUrl"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
         }
+        
     }
-    
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.setUrl" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
+
++(void)trackEvent:(NSString *)action{
+    @try{
+        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+		NSDictionary *trackEventDict = [[NSDictionary alloc] init];
+        
+        [ tempDictionary setObject:action forKey:@"Activity"]; //ACTION
+        [ tempDictionary setObject:@"Analytics" forKey:@"ActivityType"]; //CATEGORY
+
+        AppDelegate *mainDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        //NSString *customerId = [mainDelegate getCustomerId];
+        //[ tempDictionary setObject:customerId forKey:@"EntityId"]; //get from auth header?
+        [ tempDictionary setObject:@"Customer" forKey:@"EntityType"]; //get from auth header?
+        
+        [ tempDictionary setObject:@0.0 forKey:@"Latitude"];//optional
+        [ tempDictionary setObject:@0.0 forKey:@"Longitude"];//optional
+        [ tempDictionary setObject:@"clicks" forKey:@"MeasureType"];//LABEL
+        [ tempDictionary setObject:@1.0 forKey:@"MeasureValue"];//VALUE
+        [ tempDictionary setObject:@"Arc Mobile" forKey:@"Application"];
+        [ tempDictionary setObject:@"AT&T" forKey:@"Carrier"]; //TODO add real carrier
+        //[ tempDictionary setObject:@"Profile page viewed" forKey:@"Description"]; //Jim removed description
+        [ tempDictionary setObject:@"iOS" forKey:@"Source"];
+        [ tempDictionary setObject:@"phone" forKey:@"SourceType"];//remove
+        [ tempDictionary setObject:@"0.1" forKey:@"Version"];
+        
+		trackEventDict = tempDictionary;
+        ArcClient *client = [[ArcClient alloc] init];
+        [client trackEvent:trackEventDict];
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.trackEvent" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
 @end

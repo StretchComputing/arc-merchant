@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9014224C161750FD0051D913 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9014224B161750FD0051D913 /* Settings.m */; };
+		90142250161759680051D913 /* InvoiceActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 9014224F161759680051D913 /* InvoiceActivity.m */; };
+		9014225B161782DA0051D913 /* RegisterDwollaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9014225A161782DA0051D913 /* RegisterDwollaView.m */; };
+		90142271161784260051D913 /* DwollaOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 9014225D161784240051D913 /* DwollaOAuth2Client.m */; };
+		90142272161784260051D913 /* DwollaAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 9014225F161784240051D913 /* DwollaAPI.m */; };
+		90142273161784260051D913 /* DwollaContacts.m in Sources */ = {isa = PBXBuildFile; fileRef = 90142262161784240051D913 /* DwollaContacts.m */; };
+		90142274161784260051D913 /* DwollaContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 90142264161784250051D913 /* DwollaContact.m */; };
+		90142275161784260051D913 /* DwollaFundingSources.m in Sources */ = {isa = PBXBuildFile; fileRef = 90142266161784250051D913 /* DwollaFundingSources.m */; };
+		90142276161784260051D913 /* DwollaFundingSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 90142268161784250051D913 /* DwollaFundingSource.m */; };
+		90142277161784260051D913 /* DwollaUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9014226A161784250051D913 /* DwollaUser.m */; };
+		90142278161784260051D913 /* DwollaTransactions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9014226C161784250051D913 /* DwollaTransactions.m */; };
+		90142279161784260051D913 /* DwollaTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 9014226E161784260051D913 /* DwollaTransaction.m */; };
+		9014227A161784260051D913 /* DwollaTransactionStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 90142270161784260051D913 /* DwollaTransactionStats.m */; };
+		9014227D161784E70051D913 /* FBEncryptorAES.m in Sources */ = {isa = PBXBuildFile; fileRef = 9014227C161784E70051D913 /* FBEncryptorAES.m */; };
+		90142280161785050051D913 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 9014227F161785050051D913 /* NSData+Base64.m */; };
 		906C810F15FD6C990012AC9D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906C810E15FD6C990012AC9D /* UIKit.framework */; };
 		906C811115FD6C990012AC9D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906C811015FD6C990012AC9D /* Foundation.framework */; };
 		906C811315FD6C990012AC9D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906C811215FD6C990012AC9D /* CoreGraphics.framework */; };
@@ -40,6 +55,37 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9014224A161750FD0051D913 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		9014224B161750FD0051D913 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
+		9014224E161759680051D913 /* InvoiceActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceActivity.h; sourceTree = "<group>"; };
+		9014224F161759680051D913 /* InvoiceActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceActivity.m; sourceTree = "<group>"; };
+		90142259161782DA0051D913 /* RegisterDwollaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterDwollaView.h; sourceTree = "<group>"; };
+		9014225A161782DA0051D913 /* RegisterDwollaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterDwollaView.m; sourceTree = "<group>"; };
+		9014225C161784240051D913 /* DwollaOAuth2Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DwollaOAuth2Client.h; sourceTree = "<group>"; };
+		9014225D161784240051D913 /* DwollaOAuth2Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DwollaOAuth2Client.m; sourceTree = "<group>"; };
+		9014225E161784240051D913 /* DwollaAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DwollaAPI.h; sourceTree = "<group>"; };
+		9014225F161784240051D913 /* DwollaAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DwollaAPI.m; sourceTree = "<group>"; };
+		90142260161784240051D913 /* IDwollaMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDwollaMessages.h; sourceTree = "<group>"; };
+		90142261161784240051D913 /* DwollaContacts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DwollaContacts.h; sourceTree = "<group>"; };
+		90142262161784240051D913 /* DwollaContacts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DwollaContacts.m; sourceTree = "<group>"; };
+		90142263161784240051D913 /* DwollaContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DwollaContact.h; sourceTree = "<group>"; };
+		90142264161784250051D913 /* DwollaContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DwollaContact.m; sourceTree = "<group>"; };
+		90142265161784250051D913 /* DwollaFundingSources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DwollaFundingSources.h; sourceTree = "<group>"; };
+		90142266161784250051D913 /* DwollaFundingSources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DwollaFundingSources.m; sourceTree = "<group>"; };
+		90142267161784250051D913 /* DwollaFundingSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DwollaFundingSource.h; sourceTree = "<group>"; };
+		90142268161784250051D913 /* DwollaFundingSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DwollaFundingSource.m; sourceTree = "<group>"; };
+		90142269161784250051D913 /* DwollaUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DwollaUser.h; sourceTree = "<group>"; };
+		9014226A161784250051D913 /* DwollaUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DwollaUser.m; sourceTree = "<group>"; };
+		9014226B161784250051D913 /* DwollaTransactions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DwollaTransactions.h; sourceTree = "<group>"; };
+		9014226C161784250051D913 /* DwollaTransactions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DwollaTransactions.m; sourceTree = "<group>"; };
+		9014226D161784260051D913 /* DwollaTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DwollaTransaction.h; sourceTree = "<group>"; };
+		9014226E161784260051D913 /* DwollaTransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DwollaTransaction.m; sourceTree = "<group>"; };
+		9014226F161784260051D913 /* DwollaTransactionStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DwollaTransactionStats.h; sourceTree = "<group>"; };
+		90142270161784260051D913 /* DwollaTransactionStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DwollaTransactionStats.m; sourceTree = "<group>"; };
+		9014227B161784E70051D913 /* FBEncryptorAES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBEncryptorAES.h; sourceTree = "<group>"; };
+		9014227C161784E70051D913 /* FBEncryptorAES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBEncryptorAES.m; sourceTree = "<group>"; };
+		9014227E161785040051D913 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		9014227F161785050051D913 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		906C810A15FD6C990012AC9D /* ArcMerchant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArcMerchant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		906C810E15FD6C990012AC9D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		906C811015FD6C990012AC9D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -149,6 +195,16 @@
 				906C812015FD6C990012AC9D /* MainStoryboard_iPhone.storyboard */,
 				906C812615FD6C990012AC9D /* ViewController.h */,
 				906C812715FD6C990012AC9D /* ViewController.m */,
+				9014224E161759680051D913 /* InvoiceActivity.h */,
+				9014224F161759680051D913 /* InvoiceActivity.m */,
+				9014224A161750FD0051D913 /* Settings.h */,
+				9014224B161750FD0051D913 /* Settings.m */,
+				9014227E161785040051D913 /* NSData+Base64.h */,
+				9014227F161785050051D913 /* NSData+Base64.m */,
+				9014227B161784E70051D913 /* FBEncryptorAES.h */,
+				9014227C161784E70051D913 /* FBEncryptorAES.m */,
+				90142259161782DA0051D913 /* RegisterDwollaView.h */,
+				9014225A161782DA0051D913 /* RegisterDwollaView.m */,
 				906C813415FD6E270012AC9D /* ArcClient.h */,
 				906C813515FD6E270012AC9D /* ArcClient.m */,
 				906C816E15FD6FE60012AC9D /* rSkybox.h */,
@@ -157,6 +213,27 @@
 				906C817215FD70090012AC9D /* UIDevice-Hardware.m */,
 				906C817415FD70170012AC9D /* Encoder.c */,
 				906C817515FD70170012AC9D /* Encoder.h */,
+				9014225C161784240051D913 /* DwollaOAuth2Client.h */,
+				9014225D161784240051D913 /* DwollaOAuth2Client.m */,
+				9014225E161784240051D913 /* DwollaAPI.h */,
+				9014225F161784240051D913 /* DwollaAPI.m */,
+				90142260161784240051D913 /* IDwollaMessages.h */,
+				90142261161784240051D913 /* DwollaContacts.h */,
+				90142262161784240051D913 /* DwollaContacts.m */,
+				90142263161784240051D913 /* DwollaContact.h */,
+				90142264161784250051D913 /* DwollaContact.m */,
+				90142265161784250051D913 /* DwollaFundingSources.h */,
+				90142266161784250051D913 /* DwollaFundingSources.m */,
+				90142267161784250051D913 /* DwollaFundingSource.h */,
+				90142268161784250051D913 /* DwollaFundingSource.m */,
+				90142269161784250051D913 /* DwollaUser.h */,
+				9014226A161784250051D913 /* DwollaUser.m */,
+				9014226B161784250051D913 /* DwollaTransactions.h */,
+				9014226C161784250051D913 /* DwollaTransactions.m */,
+				9014226D161784260051D913 /* DwollaTransaction.h */,
+				9014226E161784260051D913 /* DwollaTransaction.m */,
+				9014226F161784260051D913 /* DwollaTransactionStats.h */,
+				90142270161784260051D913 /* DwollaTransactionStats.m */,
 				906C817715FD709E0012AC9D /* arcLogo.png */,
 				906C813715FD6E9C0012AC9D /* Classes */,
 				906C811515FD6C990012AC9D /* Supporting Files */,
@@ -302,6 +379,21 @@
 				906C817015FD6FE60012AC9D /* rSkybox.m in Sources */,
 				906C817315FD70090012AC9D /* UIDevice-Hardware.m in Sources */,
 				906C817615FD70170012AC9D /* Encoder.c in Sources */,
+				9014224C161750FD0051D913 /* Settings.m in Sources */,
+				90142250161759680051D913 /* InvoiceActivity.m in Sources */,
+				9014225B161782DA0051D913 /* RegisterDwollaView.m in Sources */,
+				90142271161784260051D913 /* DwollaOAuth2Client.m in Sources */,
+				90142272161784260051D913 /* DwollaAPI.m in Sources */,
+				90142273161784260051D913 /* DwollaContacts.m in Sources */,
+				90142274161784260051D913 /* DwollaContact.m in Sources */,
+				90142275161784260051D913 /* DwollaFundingSources.m in Sources */,
+				90142276161784260051D913 /* DwollaFundingSource.m in Sources */,
+				90142277161784260051D913 /* DwollaUser.m in Sources */,
+				90142278161784260051D913 /* DwollaTransactions.m in Sources */,
+				90142279161784260051D913 /* DwollaTransaction.m in Sources */,
+				9014227A161784260051D913 /* DwollaTransactionStats.m in Sources */,
+				9014227D161784E70051D913 /* FBEncryptorAES.m in Sources */,
+				90142280161785050051D913 /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,6 +513,7 @@
 				906C812D15FD6C990012AC9D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

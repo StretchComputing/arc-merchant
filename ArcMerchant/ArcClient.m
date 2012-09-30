@@ -161,20 +161,23 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
 
 -(void)getInvoiceList:(NSDictionary *)pairs{
     @try {
-        [rSkybox addEventToSession:@"getInvoiceList"];
-        api = GetInvoiceList;
+                
         
-        NSString *getInvoiceListUrl = [NSString stringWithFormat:@"%@Invoices", _arcUrl];
-        //NSLog(@"getInvoiceListUrl: %@", getInvoiceUrl);
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
+        NSString *getInvoiceListUrl = [NSString stringWithFormat:@"%@invoices", _arcUrl];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getInvoiceListUrl]];
-        [request setHTTPMethod: @"GET"];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setHTTPMethod: @"SEARCH"];
+        [request setHTTPBody: requestData];
+        NSString *authHeader = [self authHeader];
+        NSLog(@"Auth Header: %@", authHeader);
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         self.serverData = [NSMutableData data];
-        [rSkybox startThreshold:@"GetInvoice"];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.getInvoiceList" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -278,6 +281,11 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
 }
 
 
+
+
+
+
+
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
     @try {
         
@@ -286,6 +294,13 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.connection" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
+    
+    NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+    self.httpStatusCode = [httpResponse statusCode];
+    NSLog(@"HTTP Status Code: %d", self.httpStatusCode);
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
@@ -297,7 +312,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
-        //NSLog(@"ReturnString: %@", returnString);
+        NSLog(@"ReturnString: %@", returnString);
         
         SBJsonParser *jsonParser = [SBJsonParser new];
         NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
@@ -472,7 +487,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         NSDictionary *responseInfo;
         if (success){
-            NSDictionary *customer = [response valueForKey:@"Customer"];
+            NSDictionary *customer = [response valueForKey:@"Results"];
             NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
             NSString *customerToken = [customer valueForKey:@"Token"];
             
@@ -509,7 +524,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         NSDictionary *responseInfo;
         if (success){
-            NSDictionary *customer = [response valueForKey:@"Customer"];
+            NSDictionary *customer = [response valueForKey:@"Results"];
             NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
             NSString *customerToken = [customer valueForKey:@"Token"];
             
@@ -714,11 +729,12 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
 -(NSString *) authHeader {
     @try {
         
-        
-        if ([self customerToken]) {
-            NSString *stringToEncode = [@"customer:" stringByAppendingString:[self customerToken]];
+        NSString *customerToken = [self customerToken];
+        if (customerToken) {
+            NSString *stringToEncode = [@"customer:" stringByAppendingString:customerToken];
             NSString *authentication = [self encodeBase64:stringToEncode];
             
+            return [@"Basic " stringByAppendingString:customerToken];
             return authentication;
         }else{
             return @"";

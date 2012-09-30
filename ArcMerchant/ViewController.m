@@ -20,9 +20,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     
-    NSDictionary *loginDict = [[NSDictionary alloc] init];
-    ArcClient *client = [[ArcClient alloc] init];
-    [client getInvoiceList:loginDict];
+
     
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -86,7 +84,8 @@
         self.username.clearButtonMode = UITextFieldViewModeWhileEditing;
         self.password.clearButtonMode = UITextFieldViewModeWhileEditing;
         
-        
+        self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
+
         self.navBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
         [super viewDidLoad];
         // Do any additional setup after loading the view, typically from a nib.

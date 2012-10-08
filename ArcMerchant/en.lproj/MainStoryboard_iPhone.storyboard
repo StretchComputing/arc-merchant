@@ -466,6 +466,9 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="refundMainAction" destination="029-5n-tIX" eventType="touchUpInside" id="WdO-fc-pFe"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" id="CTJ-as-ATB">
                                 <rect key="frame" x="0.0" y="360" width="320" height="1"/>
@@ -727,7 +730,7 @@
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter Your Dwolla Pin:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="hD3-fS-Aq8" customClass="LucidaLabel">
                                 <rect key="frame" x="0.0" y="22" width="320" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -768,6 +771,20 @@
                                 <rect key="frame" x="12" y="65" width="288" height="48"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Refund To:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bFF-Rf-p3g">
+                                <rect key="frame" x="61" y="137" width="211" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Refund Amount:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VMI-Hr-GWJ">
+                                <rect key="frame" x="61" y="166" width="211" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -786,6 +803,8 @@
                         <outlet property="checkNumTwo" destination="KaT-fX-TKH" id="MKI-ks-xfg"/>
                         <outlet property="errorLabel" destination="DZ5-vk-9wE" id="hrV-iI-7rh"/>
                         <outlet property="payButton" destination="ahb-sB-dr3" id="KXV-z0-ct0"/>
+                        <outlet property="refundAmountLabel" destination="VMI-Hr-GWJ" id="A6a-gu-Co6"/>
+                        <outlet property="refundToLabel" destination="bFF-Rf-p3g" id="sru-RS-ESl"/>
                         <outlet property="submitButton" destination="ahb-sB-dr3" id="15v-CO-17O"/>
                     </connections>
                 </viewController>
@@ -832,6 +851,8 @@
                 <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="notesText" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="payButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="refundAmountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="refundToLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
@@ -856,6 +877,7 @@
                 <relationship kind="action" name="closeInvoicePaymentsAction"/>
                 <relationship kind="action" name="endText"/>
                 <relationship kind="action" name="refundAllAction"/>
+                <relationship kind="action" name="refundMainAction"/>
                 <relationship kind="action" name="refundPartialAction"/>
                 <relationship kind="action" name="showInvoiceItemsAction"/>
                 <relationship kind="action" name="showPaymentsAction"/>

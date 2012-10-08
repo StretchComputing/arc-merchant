@@ -178,7 +178,7 @@
                 refundButton.selectedRow = indexPath.row;
                 [refundButton addTarget:self action:@selector(refundPayment:) forControlEvents:UIControlEventTouchUpInside];
             }else{
-                refundButton.hidden = NO;
+                refundButton.hidden = YES;
             }
             
         }
@@ -217,13 +217,29 @@
 
 - (IBAction)showInvoiceItemsAction {
     
-    self.invoiceItemsView.hidden = NO;
-    [self.invoiceItemsTable reloadData];
+    
+    if ([self.myInvoice.payments count] == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"None Found" message:@"There were no items found on this invoice." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }else{
+        
+        self.invoiceItemsView.hidden = NO;
+        [self.invoiceItemsTable reloadData];
+    }
+    
+  
 }
 
 - (IBAction)showPaymentsAction {
-    self.invoicePaymentsView.hidden= NO;
-    [self.invoicePaymentsTable reloadData];
+    
+    if ([self.myInvoice.payments count] == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"None Found" message:@"There were no payments found on this invoice." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }else{
+        self.invoicePaymentsView.hidden= NO;
+        [self.invoicePaymentsTable reloadData];
+    }
+   
 }
 
 - (IBAction)closeInvoicePaymentsAction {
@@ -268,4 +284,48 @@
     
 }
 
+- (IBAction)refundMainAction {
+    
+    
+    NSString *token = @"";
+    @try {
+        token = [DwollaAPI getAccessToken];
+    }
+    @catch (NSException *exception) {
+        token = nil;
+    }
+    
+    
+    if ([token length] > 0) {
+        
+        
+        if ([self.myInvoice.payments count] > 0) {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Multiple Payments" message:@"Multiple payments were found on this invoice, please select which you would like to refund" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            [self showPaymentsAction];
+            
+        }else{
+            
+            NSDictionary *payment = [self.myInvoice.payments objectAtIndex:0];
+            
+            self.refundDictionary = [NSDictionary dictionary];
+            self.refundDictionary = payment;
+            
+            [self refundAllAction];
+            
+        }
+        
+        
+        
+     
+        
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Dwolla Accout" message:@"Please log into your Dwolla Account in the ArcMerchant Settings before issuing refunds." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }
+    
+    
+    
+}
 @end

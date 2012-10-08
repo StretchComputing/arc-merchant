@@ -14,6 +14,8 @@
 
 @property double refundAmount;
 @property (nonatomic, strong) NSDictionary *refundAccountDictionary;
+@property (weak, nonatomic) IBOutlet UILabel *refundToLabel;
+@property (weak, nonatomic) IBOutlet UILabel *refundAmountLabel;
 
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *payButton;
 @property int invoiceId;

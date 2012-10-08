@@ -13,6 +13,7 @@
 
 @property double refundAmount;
 @property (nonatomic, strong) NSDictionary *refundDictionary;
+- (IBAction)refundMainAction;
 
 @property (weak, nonatomic) IBOutlet UIView *invoiceItemsView;
 @property (nonatomic, strong) Invoice *myInvoice;

@@ -20,6 +20,7 @@
 @implementation DwollaPayment
 
 
+
 - (void)viewDidLoad
 {
     
@@ -107,6 +108,10 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     @try {
+        
+        
+        self.refundToLabel.text = [NSString stringWithFormat:@"Refund To: %@", [self.refundAccountDictionary valueForKey:@"Name"]];
+        self.refundAmountLabel.text = [NSString stringWithFormat:@"Refund Amount: $%.2f", self.refundAmount];
         
         [self.hiddenText becomeFirstResponder];
         self.serverData = [NSMutableData data];
@@ -482,7 +487,7 @@
         self.payButton.enabled = NO;
         self.navigationItem.hidesBackButton = YES;
         ArcClient *client = [[ArcClient alloc] init];
-        [client createPayment:loginDict];
+        //[client createPayment:loginDict];
     }
     @catch (NSException *e) {
         
@@ -552,6 +557,8 @@
 }
 
 - (void)viewDidUnload {
+    [self setRefundToLabel:nil];
+    [self setRefundAmountLabel:nil];
     [super viewDidUnload];
 }
 @end

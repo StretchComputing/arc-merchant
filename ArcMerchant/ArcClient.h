@@ -8,24 +8,34 @@
 
 #import <Foundation/Foundation.h>
 
+extern int const USER_ALREADY_EXISTS;
+extern int const INCORRECT_LOGIN_INFO;
+extern int const INVOICE_NOT_FOUND;
+extern int const CANNOT_PROCESS_PAYMENT;
+extern int const MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE;
+extern int const CANNOT_TRANSFER_TO_SAME_ACCOUNT;
+extern int const FAILED_TO_VALIDATE_CARD;
+extern int const INVALID_ACCOUNT_NUMBER;
+extern int const CANNOT_GET_PAYMENT_AUTHORIZATION;
+
+extern NSString *const ARC_ERROR_MSG;
+
 typedef enum {
     GetServer = 0,
     CreateCustomer=1,
     GetCustomerToken=2,
     GetMerchantList=3,
     GetInvoice=4,
-    GetInvoiceList=5,
-    CreatePayment=6,
-    CreateReview=7,
-    GetPointBalance=8,
-    TrackEvent=9
+    CreatePayment=5,
+    CreateReview=6,
+    GetPointBalance=7,
+    TrackEvent=8
 } APIS;
 
 @interface ArcClient : NSObject <NSURLConnectionDelegate> {
     APIS api;
 }
 @property (nonatomic, strong) NSMutableData *serverData;
-
 @property int httpStatusCode;
 
 -(void)createCustomer:(NSDictionary *)pairs;
@@ -39,9 +49,6 @@ typedef enum {
 
 -(void)getInvoice:(NSDictionary *)pairs;
 -(NSDictionary *) getInvoiceResponse:(NSDictionary *)response;
-
--(void)getInvoiceList:(NSDictionary *)pairs;
--(NSDictionary *) getInvoiceListResponse:(NSDictionary *)response;
 
 -(void)createPayment:(NSDictionary *)pairs;
 -(NSDictionary *) createPaymentResponse:(NSDictionary *)response;

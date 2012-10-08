@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface InvoiceActivity : UIViewController
+@interface InvoiceActivity : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
+
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activity;
+@property (nonatomic, strong) NSMutableArray *allInvoicesArray;
+@property (nonatomic, strong) IBOutlet UITableView *myTableView;
 @end

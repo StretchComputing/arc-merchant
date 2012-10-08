@@ -11,6 +11,7 @@
 #import "DwollaAPI.h"
 #import "rSkybox.h"
 #import <QuartzCore/QuartzCore.h>
+#import "AppDelegate.h"
 
 @interface Settings ()
 
@@ -83,7 +84,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (indexPath.section == 1) {
+        AppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+        mainDelegate.logout = @"true";
+        [self.navigationController dismissModalViewControllerAnimated:NO];
+    }
+   
 }
 
 - (IBAction)cancelAction:(id)sender {

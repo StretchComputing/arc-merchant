@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ArcClient.h"
+#import "DwollaAPI.h"
 
 @interface ViewController ()
 
@@ -35,12 +36,9 @@
             mainDelegate.logout = @"false";
             self.username.text = @"";
             self.password.text = @"";
-            
         }
         
-        
-        
-        
+                
     }
     @catch (NSException *e) {
         //[rSkybox sendClientLog:@"ViewController.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -244,7 +242,7 @@
         NSString *status = [responseInfo valueForKey:@"status"];
         
         [self.activity stopAnimating];
-        if ([status isEqualToString:@"1"]) {
+        if ([status isEqualToString:@"success"]) {
             //success
             [[NSUserDefaults standardUserDefaults] setValue:self.username.text forKey:@"customerEmail"];
             [[NSUserDefaults standardUserDefaults] synchronize];

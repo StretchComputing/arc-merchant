@@ -173,7 +173,7 @@
             double gratuity = [[payment valueForKey:@"Gratuity"] doubleValue];
             tipLabel.text = [NSString stringWithFormat:@"Gratuity: $%.2f", gratuity];
             
-            if ([[payment valueForKey:@"Type"] isEqualToString:@"CREDIT"]){
+            if ([[payment valueForKey:@"Type"] isEqualToString:@"DWOLLA"]){
                 refundButton.hidden = NO;
                 refundButton.selectedRow = indexPath.row;
                 [refundButton addTarget:self action:@selector(refundPayment:) forControlEvents:UIControlEventTouchUpInside];
@@ -309,10 +309,16 @@
             
             NSDictionary *payment = [self.myInvoice.payments objectAtIndex:0];
             
-            self.refundDictionary = [NSDictionary dictionary];
-            self.refundDictionary = payment;
-            
-            [self refundAllAction];
+            if ([[payment valueForKey:@"Type"] isEqualToString:@"DWOLLA"]) {
+                self.refundDictionary = [NSDictionary dictionary];
+                self.refundDictionary = payment;
+                
+                [self refundAllAction];
+            }else{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Dwolla Payments" message:@"The payment on this invoice was not made with Dwolla, and therefore is not refundable" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
+          
             
         }
         

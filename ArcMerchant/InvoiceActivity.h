@@ -10,7 +10,7 @@
 
 @interface InvoiceActivity : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-
+@property (nonatomic, strong) NSTimer *refreshTimer;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activity;
 @property (nonatomic, strong) NSMutableArray *allInvoicesArray;
 @property (nonatomic, strong) IBOutlet UITableView *myTableView;

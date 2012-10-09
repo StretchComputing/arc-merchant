@@ -487,7 +487,7 @@
         self.payButton.enabled = NO;
         self.navigationItem.hidesBackButton = YES;
         ArcClient *client = [[ArcClient alloc] init];
-        //[client createPayment:loginDict];
+        [client createPayment:loginDict];
     }
     @catch (NSException *e) {
         
@@ -497,6 +497,10 @@
 
 -(void)paymentComplete:(NSNotification *)notification{
     @try {
+        
+        [self.activity stopAnimating];
+        self.submitButton.enabled = YES;
+        
         /*
         self.payButton.enabled = YES;
         self.navigationItem.hidesBackButton = NO;

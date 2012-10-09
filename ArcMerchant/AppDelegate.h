@@ -13,5 +13,6 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (nonatomic, strong) NSString *logout;
-
+@property (nonatomic, strong) NSString *pushToken;
+@property BOOL didSendPush;
 @end

@@ -20,9 +20,12 @@
 @implementation InvoiceActivity
 
 -(void)viewWillDisappear:(BOOL)animated{
+    [self.refreshTimer invalidate];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 -(void)viewWillAppear:(BOOL)animated{
+    
+    self.refreshTimer = [NSTimer timerWithTimeInterval:10 target:self selector:@selector(refresh) userInfo:nil repeats:YES];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invoiceComplete:) name:@"invoiceNotification" object:nil];
     
@@ -32,6 +35,12 @@
     [client getInvoice:loginDict];
 }
 
+-(void)refresh{
+    
+    NSDictionary *loginDict = [[NSDictionary alloc] init];
+    ArcClient *client = [[ArcClient alloc] init];
+    [client getInvoice:loginDict];
+}
 
 -(void)invoiceComplete:(NSNotification *)notification{
     

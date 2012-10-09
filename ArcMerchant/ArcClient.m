@@ -41,7 +41,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-            _arcUrl = [NSString stringWithFormat:@"http://%@/rest/v1/", [prefs valueForKey:@"arcUrl"]];
+           // _arcUrl = [NSString stringWithFormat:@"http://%@/rest/v1/", [prefs valueForKey:@"arcUrl"]];
         }
         
     }
@@ -118,7 +118,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         // NSString *getCustomerTokenUrl = [NSString stringWithFormat:@"%@customers?login=%@&password=%@", _arcUrl, login, password,nil];
-        NSString *getCustomerTokenUrl = [NSString stringWithFormat:@"%@customers/token", _arcUrl, nil];
+        NSString *getCustomerTokenUrl = [NSString stringWithFormat:@"%@merchants/token", _arcUrl, nil];
         
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getCustomerTokenUrl]];
@@ -170,9 +170,20 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [rSkybox addEventToSession:@"getInvoice"];
         api = GetInvoice;
         
+        NSDate *now = [NSDate date];
+        NSDate *yest = [now dateByAddingTimeInterval:-129600];
+        
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS"];
+        
+        NSString *nowString = [dateFormat stringFromDate:now];
+        NSString *yestString = [dateFormat stringFromDate:yest];
+        
+        
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-       // [dictionary setValue:[pairs valueForKey:@"invoiceNumber"] forKey:@"Number"];
-       // [dictionary setValue:[pairs valueForKey:@"merchantId"] forKey:@"MerchantId"];
+        [dictionary setValue:yestString forKey:@"StartDate"];
+        [dictionary setValue:nowString forKey:@"EndDate"];
+        
         
        // NSNumber *pos = [NSNumber numberWithBool:YES];
         //[dictionary setValue:pos forKey:@"POS"];
@@ -296,6 +307,35 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"TrackEvent"];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.trackEvent" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+-(void)sendPushToken{
+    @try {
+        [rSkybox addEventToSession:@"sendPushToken"];
+        api = SendPushToken;
+        
+        /*
+        
+        NSString *requestString = [NSString stringWithFormat:@"%@", [myDictionary JSONRepresentation], nil];
+        NSLog(@"requestString: %@", requestString);
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        NSString *trackEventUrl = [NSString stringWithFormat:@"%@analytics/new", _arcUrl, nil];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:trackEventUrl]];
+        [request setHTTPMethod: @"POST"];
+        [request setHTTPBody: requestData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        
+        
+        self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"TrackEvent"];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+         */
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.trackEvent" logMessage:@"Exception Caught" logLevel:@"error" exception:e];

@@ -10,7 +10,8 @@
 #import "ArcClient.h"
 #import "rSkybox.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "ArcClient.h"
+#import "AppDelegate.h"
 @interface InitialController ()
 
 @end
@@ -31,6 +32,11 @@
         if (![customerId isEqualToString:@""] && (customerId != nil) && ![customerToken isEqualToString:@""] && (customerToken != nil)) {
             //[self performSegueWithIdentifier: @"signInNoAnimation" sender: self];
             //self.autoSignIn = YES;
+            
+            //Send the Push Token to the server
+            ArcClient *client = [[ArcClient alloc] init];
+            [client sendPushToken];
+            
             
             UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
             [self presentModalViewController:home animated:NO];

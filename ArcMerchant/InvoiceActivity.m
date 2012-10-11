@@ -45,6 +45,7 @@
 -(void)invoiceComplete:(NSNotification *)notification{
     
     [self.activity stopAnimating];
+    [self.refreshControl endRefreshing];
 
     @try {
         
@@ -57,6 +58,8 @@
         if ([status isEqualToString:@"success"]) {
             
             self.allInvoicesArray = [NSMutableArray array];
+            self.filterInvoicesArray = [NSMutableArray array];
+
             NSArray *invoices = [[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"];
             
             for (int i = 0; i < [invoices count]; i++) {
@@ -92,10 +95,12 @@
                 [self.allInvoicesArray addObject:myInvoice];
             }
         
-        NSSortDescriptor *dateSorter = [[NSSortDescriptor alloc] initWithKey:@"lastUpdated" ascending:NO];
-        [self.allInvoicesArray sortUsingDescriptors:[NSArray arrayWithObject:dateSorter]];
+        
+            NSSortDescriptor *dateSorter = [[NSSortDescriptor alloc] initWithKey:@"lastUpdated" ascending:NO];
+            [self.allInvoicesArray sortUsingDescriptors:[NSArray arrayWithObject:dateSorter]];
             
-        [self.myTableView reloadData];
+            [self setArrays];
+            
             
         } else if([status isEqualToString:@"error"]){
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
@@ -122,7 +127,37 @@
 }
 
 
+-(void)setArrays{
+    
+    self.typeFilterInvoicesArray = [NSMutableArray array];
+    if (self.segmentControl.selectedSegmentIndex == 0) {
+        
+        for (int i = 0; i < [self.allInvoicesArray count]; i++) {
+            Invoice *tmp = [self.allInvoicesArray objectAtIndex:i];
+            if ([tmp.status isEqualToString:@"INVOICE_UNPAID"]) {
+                [self.typeFilterInvoicesArray addObject:tmp];
+            }
+        }
+        
+    }else if (self.segmentControl.selectedSegmentIndex == 1){
+        
+        for (int i = 0; i < [self.allInvoicesArray count]; i++) {
+            Invoice *tmp = [self.allInvoicesArray objectAtIndex:i];
+            if ([tmp.status isEqualToString:@"INVOICE_PAID"]) {
+                [self.typeFilterInvoicesArray addObject:tmp];
+            }
+        }
+    }else{
+        self.typeFilterInvoicesArray = [NSMutableArray arrayWithArray:self.allInvoicesArray];
+    }
+    
+    
+    self.filterInvoicesArray = [NSMutableArray arrayWithArray:self.typeFilterInvoicesArray];
+    
+    [self.myTableView reloadData];
 
+
+}
 -(void)viewDidAppear:(BOOL)animated{
     AppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
     if ([mainDelegate.logout isEqualToString:@"true"]) {
@@ -141,6 +176,9 @@
     
       self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
     
+    self.toolbar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
+    self.searchBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
+    
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = self.view.bounds;
     UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
@@ -149,15 +187,34 @@
     UIColor *otherColor = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/155.0 blue:192.0*x/255.0 alpha:1.0];
     gradient.colors = [NSArray arrayWithObjects:(id)[otherColor CGColor], (id)[myColor CGColor], nil];
     [self.view.layer insertSublayer:gradient atIndex:0];
+    
+    self.navigationItem.rightBarButtonItem = nil;
+    
+    if(NSClassFromString(@"UIRefreshControl")) {
+        self.isIos6 = YES;
+    }else{
+        self.isIos6 = NO;
+    }
+    
+    if (self.isIos6) {
+        self.refreshControl = [[UIRefreshControl alloc] init];
+        [self.refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
+        [self.myTableView addSubview:self.refreshControl];
+    }
 }
 
 
-
+-(void)handleRefresh:(id)sender{
+    
+    ArcClient *client = [[ArcClient alloc] init];
+    [client getInvoice:[NSDictionary dictionary]];
+    
+}
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return [self.allInvoicesArray count];
+    return [self.filterInvoicesArray count];
 }
 
 
@@ -173,9 +230,9 @@
     UIBarButtonItem *temp = [[UIBarButtonItem alloc] initWithTitle:@"Activity" style:UIBarButtonItemStyleDone target:nil action:nil];
 	self.navigationItem.backBarButtonItem = temp;
     
-    if ([self.allInvoicesArray count] > 0) {
+    if ([self.filterInvoicesArray count] > 0) {
         
-        Invoice *myInvoice = [self.allInvoicesArray objectAtIndex:indexPath.row];
+        Invoice *myInvoice = [self.filterInvoicesArray objectAtIndex:indexPath.row];
         
         InvoiceDetails *details = [self.storyboard instantiateViewControllerWithIdentifier:@"invoiceDetails"];
         details.myInvoice = myInvoice;
@@ -200,12 +257,15 @@
     UILabel *invoiceStatusLabel = (UILabel *)[cell.contentView viewWithTag:3];
     UILabel *invoiceDateLabel = (UILabel *)[cell.contentView viewWithTag:4];
 
-    if ([self.allInvoicesArray count] == 0) {
+    UIView *backView = (UIView *)[cell.contentView viewWithTag:6];
+    backView.backgroundColor = [UIColor whiteColor];
+    
+    if ([self.filterInvoicesArray count] == 0) {
         
     }else{
         
         
-        Invoice *invoiceObject = [self.allInvoicesArray objectAtIndex:indexPath.row];
+        Invoice *invoiceObject = [self.filterInvoicesArray objectAtIndex:indexPath.row];
         
         
         invoiceNumberLabel.text = [NSString stringWithFormat:@"Invoice #: %@", invoiceObject.number];
@@ -215,6 +275,9 @@
         invoiceAmountLabel.text = [NSString stringWithFormat:@"$%.2f", totalAmount];
         
         invoiceStatusLabel.text = invoiceObject.status;
+        if ([invoiceObject.status isEqualToString:@"INVOICE_PAID"]) {
+            backView.backgroundColor = [UIColor colorWithRed:0.0/255.0 green:200.0/255.0 blue:0.0/255.0 alpha:1.0];
+        }
         
         invoiceDateLabel.text = invoiceObject.lastUpdated;
         
@@ -236,6 +299,54 @@
 }
 
 
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    [self.searchBar resignFirstResponder];
+    self.navigationItem.rightBarButtonItem = nil;
 
+}
 
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    
+    self.filterInvoicesArray = [NSMutableArray array];
+    if ([searchText length] > 0) {
+        for (int i = 0; i < [self.typeFilterInvoicesArray count]; i++) {
+            
+            Invoice *tmp = [self.typeFilterInvoicesArray objectAtIndex:i];
+            
+            NSLog(@"Number: %@", tmp.number);
+            NSLog(@"Text: %@", searchText);
+            
+            if ([tmp.number rangeOfString:searchText].location != NSNotFound) {
+                [self.filterInvoicesArray addObject:tmp];
+            }
+        }
+    }else{
+        self.filterInvoicesArray = [NSMutableArray arrayWithArray:self.typeFilterInvoicesArray];
+    }
+    
+    [self.myTableView reloadData];
+   
+}
+
+- (IBAction)segmentValueChanged {
+    self.searchBar.text = @"";
+    [self setArrays];
+}
+- (void)viewDidUnload {
+    [self setDoneSearchButton:nil];
+    [self setToolbar:nil];
+    [super viewDidUnload];
+}
+- (IBAction)doneSearchAction:(id)sender {
+    self.searchBar.text = @"";
+    [self.searchBar resignFirstResponder];
+    self.navigationItem.rightBarButtonItem = nil;
+    [self setArrays];
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneSearchAction:)];
+        
+}
 @end

@@ -8,10 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-@interface InvoiceActivity : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface InvoiceActivity : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+- (IBAction)doneSearchAction:(id)sender;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneSearchButton;
 @property (nonatomic, strong) NSTimer *refreshTimer;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activity;
 @property (nonatomic, strong) NSMutableArray *allInvoicesArray;
+@property (nonatomic, strong) NSMutableArray *filterInvoicesArray;
+@property (nonatomic, strong) NSMutableArray *typeFilterInvoicesArray;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
+@property BOOL isIos6;
+
+- (IBAction)segmentValueChanged;
 @property (nonatomic, strong) IBOutlet UITableView *myTableView;
 @end

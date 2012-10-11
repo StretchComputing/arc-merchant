@@ -183,9 +183,11 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
         [dictionary setValue:yestString forKey:@"StartDate"];
         [dictionary setValue:nowString forKey:@"EndDate"];
+        [dictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"] forKey:@"MerchantId"];
+
         
         
-       // NSNumber *pos = [NSNumber numberWithBool:YES];
+        //NSNumber *pos = [NSNumber numberWithBool:NO];
         //[dictionary setValue:pos forKey:@"POS"];
         
         

@@ -263,6 +263,9 @@
     UILabel *tableNumber = (UILabel *)[cell.contentView viewWithTag:5];
 
     UIView *backView = (UIView *)[cell.contentView viewWithTag:6];
+    
+    UIImageView *imageView = (UIImageView *)[cell.contentView viewWithTag:7];
+
     backView.backgroundColor = [UIColor whiteColor];
     
     if ([self.filterInvoicesArray count] == 0) {
@@ -280,9 +283,9 @@
         invoiceAmountLabel.text = [NSString stringWithFormat:@"$%.2f", totalAmount];
         
         invoiceStatusLabel.text = invoiceObject.status;
-        if ([invoiceObject.status isEqualToString:@"INVOICE_PAID"]) {
-            backView.backgroundColor = [UIColor colorWithRed:0.0/255.0 green:200.0/255.0 blue:0.0/255.0 alpha:1.0];
-        }
+        //if ([invoiceObject.status isEqualToString:@"INVOICE_PAID"]) {
+         //   backView.backgroundColor = [UIColor colorWithRed:0.0/255.0 green:200.0/255.0 blue:0.0/255.0 alpha:1.0];
+        //}
         
         invoiceDateLabel.text = invoiceObject.lastUpdated;
         
@@ -295,6 +298,14 @@
         
         invoiceDateLabel.text = [dateFormat stringFromDate:myDate];
         tableNumber.text = [NSString stringWithFormat:@"Table #: %@", invoiceObject.tableNumber];
+        
+        if ([invoiceObject.status isEqualToString:@"INVOICE_PAID"]) {
+            imageView.image = [UIImage imageNamed:@"paid.png"];
+        }else if ([invoiceObject.status isEqualToString:@"INVOICE_PAID_PARTIAL"]){
+            imageView.image = [UIImage imageNamed:@"partial.png"];
+        }else{
+            imageView.image = [UIImage imageNamed:@"notpaid.png"];
+        }
 
     }
     

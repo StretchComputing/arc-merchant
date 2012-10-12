@@ -211,7 +211,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" text="INVOICE_PAID_IN_FULL" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pVO-ee-nBh">
-                                                            <rect key="frame" x="7" y="52" width="207" height="21"/>
+                                                            <rect key="frame" x="34" y="52" width="207" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="17"/>
@@ -219,7 +219,7 @@
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="$34.53" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Z4b-Xg-hfB">
-                                                            <rect key="frame" x="213" y="52" width="90" height="21"/>
+                                                            <rect key="frame" x="215" y="52" width="90" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="16"/>
@@ -227,7 +227,7 @@
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Invoice #: 2000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oWa-8j-T9n">
-                                                            <rect key="frame" x="7" y="6" width="170" height="21"/>
+                                                            <rect key="frame" x="34" y="6" width="170" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="16"/>
@@ -235,7 +235,7 @@
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="left" text="Table #: 34" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="561-U3-L9i">
-                                                            <rect key="frame" x="7" y="28" width="170" height="21"/>
+                                                            <rect key="frame" x="34" y="28" width="170" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="16"/>
@@ -243,13 +243,17 @@
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="left" text="12/23 4:34pm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VYJ-e9-Nww">
-                                                            <rect key="frame" x="187" y="6" width="116" height="21"/>
+                                                            <rect key="frame" x="189" y="6" width="116" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="14"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </label>
+                                                        <imageView userInteractionEnabled="NO" tag="7" contentMode="scaleToFill" image="paid.png" id="RpL-xj-uYs">
+                                                            <rect key="frame" x="3" y="26" width="26" height="26"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                 </view>
@@ -881,8 +885,102 @@
     <resources>
         <image name="Default.png" width="320" height="460"/>
         <image name="arcLogo.png" width="667" height="250"/>
+        <image name="paid.png" width="64" height="64"/>
         <image name="rowButton.png" width="320" height="100"/>
     </resources>
+    <classes>
+        <class className="DwollaPayment" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DwollaPayment.h"/>
+            <relationships>
+                <relationship kind="action" name="submit:"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="notesText" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="payButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="refundAmountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="refundToLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="InitialController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InitialController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mottoLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="InvoiceActivity" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InvoiceActivity.h"/>
+            <relationships>
+                <relationship kind="action" name="doneSearchAction:"/>
+                <relationship kind="action" name="segmentValueChanged"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="doneSearchButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="segmentControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="InvoiceDetails" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InvoiceDetails.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelRefundAction"/>
+                <relationship kind="action" name="closeInvoiceItemsAction"/>
+                <relationship kind="action" name="closeInvoicePaymentsAction"/>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="refundAllAction"/>
+                <relationship kind="action" name="refundMainAction"/>
+                <relationship kind="action" name="refundPartialAction"/>
+                <relationship kind="action" name="showInvoiceItemsAction"/>
+                <relationship kind="action" name="showPaymentsAction"/>
+                <relationship kind="outlet" name="closeInvoicePaymentsView" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="invoiceAdditionalChargeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="invoiceBaseAmountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="invoiceDateCreatedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="invoiceDiscountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="invoiceItemsTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="invoiceItemsView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="invoiceLastUpdatedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="invoiceNumberLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="invoicePaymentsTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="invoicePaymentsView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="invoiceServiceChargeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="invoiceStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="invoiceTaxLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="invoiceTotalLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="refundAmountText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="refundAmountView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="RefundButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RefundButton.h"/>
+        </class>
+        <class className="RegisterDwollaView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterDwollaView.h"/>
+        </class>
+        <class className="Settings" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/Settings.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelAction:"/>
+                <relationship kind="action" name="dwollaAuthSwitchSelected"/>
+                <relationship kind="outlet" name="dwollaAuthSwitch" candidateClass="UISwitch"/>
+            </relationships>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="signIn"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

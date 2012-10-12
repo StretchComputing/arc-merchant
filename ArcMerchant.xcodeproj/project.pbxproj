@@ -63,6 +63,9 @@
 		906C817315FD70090012AC9D /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C817215FD70090012AC9D /* UIDevice-Hardware.m */; };
 		906C817615FD70170012AC9D /* Encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 906C817415FD70170012AC9D /* Encoder.c */; };
 		906C817815FD709E0012AC9D /* arcLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 906C817715FD709E0012AC9D /* arcLogo.png */; };
+		908A6E231628994400041727 /* notpaid.png in Resources */ = {isa = PBXBuildFile; fileRef = 908A6E201628994400041727 /* notpaid.png */; };
+		908A6E241628994400041727 /* paid.png in Resources */ = {isa = PBXBuildFile; fileRef = 908A6E211628994400041727 /* paid.png */; };
+		908A6E251628994400041727 /* partial.png in Resources */ = {isa = PBXBuildFile; fileRef = 908A6E221628994400041727 /* partial.png */; };
 		9090205116266D44001B8428 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9090205016266D44001B8428 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -172,6 +175,9 @@
 		906C817415FD70170012AC9D /* Encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Encoder.c; sourceTree = "<group>"; };
 		906C817515FD70170012AC9D /* Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Encoder.h; sourceTree = "<group>"; };
 		906C817715FD709E0012AC9D /* arcLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arcLogo.png; sourceTree = "<group>"; };
+		908A6E201628994400041727 /* notpaid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notpaid.png; sourceTree = "<group>"; };
+		908A6E211628994400041727 /* paid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paid.png; sourceTree = "<group>"; };
+		908A6E221628994400041727 /* partial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = partial.png; sourceTree = "<group>"; };
 		9090205016266D44001B8428 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -285,6 +291,9 @@
 				9012BA7C1620929B00B1CE62 /* greyBack.png */,
 				902E01C2162268F90013CB73 /* rowButton.png */,
 				906C817715FD709E0012AC9D /* arcLogo.png */,
+				908A6E201628994400041727 /* notpaid.png */,
+				908A6E211628994400041727 /* paid.png */,
+				908A6E221628994400041727 /* partial.png */,
 				906C813715FD6E9C0012AC9D /* Classes */,
 				906C811515FD6C990012AC9D /* Supporting Files */,
 			);
@@ -401,6 +410,9 @@
 				902E01C916226B130013CB73 /* Default@2x.png in Resources */,
 				902E01CA16226B130013CB73 /* Default.png in Resources */,
 				9090205116266D44001B8428 /* Default-568h@2x.png in Resources */,
+				908A6E231628994400041727 /* notpaid.png in Resources */,
+				908A6E241628994400041727 /* paid.png in Resources */,
+				908A6E251628994400041727 /* partial.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -89,8 +89,10 @@
                 myInvoice.tags = [NSArray arrayWithArray:[theInvoice valueForKey:@"Tags"]];
                 myInvoice.items = [NSArray arrayWithArray:[theInvoice valueForKey:@"Items"]];
                 myInvoice.payments = [NSArray arrayWithArray:[theInvoice valueForKey:@"Payments"]];
-                
-                NSLog(@"Count: %d", [myInvoice.payments count]);
+                myInvoice.tableNumber = [theInvoice valueForKey:@"TableNumber"];
+        
+              
+
 
                 [self.allInvoicesArray addObject:myInvoice];
             }
@@ -233,6 +235,7 @@
     if ([self.filterInvoicesArray count] > 0) {
         
         Invoice *myInvoice = [self.filterInvoicesArray objectAtIndex:indexPath.row];
+    
         
         InvoiceDetails *details = [self.storyboard instantiateViewControllerWithIdentifier:@"invoiceDetails"];
         details.myInvoice = myInvoice;
@@ -257,7 +260,12 @@
     UILabel *invoiceStatusLabel = (UILabel *)[cell.contentView viewWithTag:3];
     UILabel *invoiceDateLabel = (UILabel *)[cell.contentView viewWithTag:4];
 
+    UILabel *tableNumber = (UILabel *)[cell.contentView viewWithTag:5];
+
     UIView *backView = (UIView *)[cell.contentView viewWithTag:6];
+    
+    UIImageView *imageView = (UIImageView *)[cell.contentView viewWithTag:7];
+
     backView.backgroundColor = [UIColor whiteColor];
     
     if ([self.filterInvoicesArray count] == 0) {
@@ -275,9 +283,9 @@
         invoiceAmountLabel.text = [NSString stringWithFormat:@"$%.2f", totalAmount];
         
         invoiceStatusLabel.text = invoiceObject.status;
-        if ([invoiceObject.status isEqualToString:@"INVOICE_PAID"]) {
-            backView.backgroundColor = [UIColor colorWithRed:0.0/255.0 green:200.0/255.0 blue:0.0/255.0 alpha:1.0];
-        }
+        //if ([invoiceObject.status isEqualToString:@"INVOICE_PAID"]) {
+         //   backView.backgroundColor = [UIColor colorWithRed:0.0/255.0 green:200.0/255.0 blue:0.0/255.0 alpha:1.0];
+        //}
         
         invoiceDateLabel.text = invoiceObject.lastUpdated;
         
@@ -289,6 +297,15 @@
         [dateFormat setDateFormat:@"MM/dd hh:mm aa"];
         
         invoiceDateLabel.text = [dateFormat stringFromDate:myDate];
+        tableNumber.text = [NSString stringWithFormat:@"Table #: %@", invoiceObject.tableNumber];
+        
+        if ([invoiceObject.status isEqualToString:@"INVOICE_PAID"]) {
+            imageView.image = [UIImage imageNamed:@"paid.png"];
+        }else if ([invoiceObject.status isEqualToString:@"INVOICE_PAID_PARTIAL"]){
+            imageView.image = [UIImage imageNamed:@"partial.png"];
+        }else{
+            imageView.image = [UIImage imageNamed:@"notpaid.png"];
+        }
 
     }
     

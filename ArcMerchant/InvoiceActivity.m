@@ -89,8 +89,10 @@
                 myInvoice.tags = [NSArray arrayWithArray:[theInvoice valueForKey:@"Tags"]];
                 myInvoice.items = [NSArray arrayWithArray:[theInvoice valueForKey:@"Items"]];
                 myInvoice.payments = [NSArray arrayWithArray:[theInvoice valueForKey:@"Payments"]];
-                
-                NSLog(@"Count: %d", [myInvoice.payments count]);
+                myInvoice.tableNumber = [theInvoice valueForKey:@"TableNumber"];
+        
+              
+
 
                 [self.allInvoicesArray addObject:myInvoice];
             }
@@ -233,6 +235,7 @@
     if ([self.filterInvoicesArray count] > 0) {
         
         Invoice *myInvoice = [self.filterInvoicesArray objectAtIndex:indexPath.row];
+    
         
         InvoiceDetails *details = [self.storyboard instantiateViewControllerWithIdentifier:@"invoiceDetails"];
         details.myInvoice = myInvoice;
@@ -256,6 +259,8 @@
     UILabel *invoiceAmountLabel = (UILabel *)[cell.contentView viewWithTag:2];
     UILabel *invoiceStatusLabel = (UILabel *)[cell.contentView viewWithTag:3];
     UILabel *invoiceDateLabel = (UILabel *)[cell.contentView viewWithTag:4];
+
+    UILabel *tableNumber = (UILabel *)[cell.contentView viewWithTag:5];
 
     UIView *backView = (UIView *)[cell.contentView viewWithTag:6];
     backView.backgroundColor = [UIColor whiteColor];
@@ -289,6 +294,7 @@
         [dateFormat setDateFormat:@"MM/dd hh:mm aa"];
         
         invoiceDateLabel.text = [dateFormat stringFromDate:myDate];
+        tableNumber.text = [NSString stringWithFormat:@"Table #: %@", invoiceObject.tableNumber];
 
     }
     

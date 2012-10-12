@@ -67,7 +67,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetServer"];
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+        //NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.getServer" logMessage:@"Exception Caught" logLevel:@"error" exception:e];

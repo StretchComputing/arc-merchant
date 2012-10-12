@@ -218,7 +218,7 @@
 - (IBAction)showInvoiceItemsAction {
     
     
-    if ([self.myInvoice.payments count] == 0) {
+    if ([self.myInvoice.items count] == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"None Found" message:@"There were no items found on this invoice." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
     }else{

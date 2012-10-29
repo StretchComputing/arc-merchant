@@ -109,7 +109,7 @@ static NSString *logNameBeingTimed;
     
     @try {
         
-        logName = [@"Merchant" stringByAppendingString:logName];
+        logName = [@"Merchant." stringByAppendingString:logName];
         
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
         NSDictionary *loginDict = [[NSDictionary alloc] init];

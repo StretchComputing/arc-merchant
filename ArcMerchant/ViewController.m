@@ -12,6 +12,7 @@
 #import "ArcClient.h"
 #import "DwollaAPI.h"
 #import "ArcUtility.h"
+#import "rSkybox.h"
 
 @interface ViewController ()
 
@@ -42,7 +43,7 @@
                 
     }
     @catch (NSException *e) {
-        //[rSkybox sendClientLog:@"ViewController.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ViewController.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         
     }
     
@@ -97,7 +98,7 @@
         [self.view.layer insertSublayer:gradient atIndex:0];
     }
     @catch (NSException *e) {
-        //[rSkybox sendClientLog:@"ViewController.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ViewController.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         
     }
     
@@ -195,7 +196,7 @@
         return cell;
     }
     @catch (NSException *e) {
-        //[rSkybox sendClientLog:@"ViewController.tableView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ViewController.tableView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         
     }
 	
@@ -226,7 +227,7 @@
             [client getCustomerToken:loginDict];
         }
         @catch (NSException *e) {
-            //[rSkybox sendClientLog:@"viewController.runSignIn" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+            [rSkybox sendClientLog:@"viewController.runSignIn" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         }
     }
 }
@@ -269,7 +270,7 @@
         }
     }
     @catch (NSException *e) {
-       // [rSkybox sendClientLog:@"ViewController.signInComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+       [rSkybox sendClientLog:@"ViewController.signInComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         
     }
     

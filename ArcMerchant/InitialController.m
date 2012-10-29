@@ -12,6 +12,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ArcClient.h"
 #import "AppDelegate.h"
+#import "ArcUtility.h"
+
 @interface InitialController ()
 
 @end
@@ -40,6 +42,10 @@
             
             UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
             [self presentModalViewController:home animated:NO];
+            
+            ArcUtility *tmp = [[ArcUtility alloc] init];
+            [tmp updatePushToken];
+            
         }else{
             UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"SignInPage"];
             [self presentModalViewController:home animated:NO];

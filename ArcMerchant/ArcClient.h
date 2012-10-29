@@ -30,7 +30,8 @@ typedef enum {
     CreateReview=6,
     GetPointBalance=7,
     TrackEvent=8,
-    SendPushToken=9
+    SendPushToken=9,
+    ResetPassword
 
 } APIS;
 
@@ -69,6 +70,8 @@ typedef enum {
 +(void)trackEvent:(NSString *)action;
 
 -(void)sendPushToken;
-
+-(void)resetPassword:(NSDictionary *)pairs;
+-(NSString *)getCurrentUrl;
+-(NSString *) authHeader;
 @end
 

@@ -26,7 +26,9 @@
 @property BOOL dwollaSuccess;
 
 @property BOOL waitingSources;
-
+@property double dwollaBalance;
+@property (nonatomic, weak) IBOutlet UILabel *dwollaBalanceText;
+@property (nonatomic, strong) NSString *merchantId;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 @property (nonatomic, strong) NSMutableData *serverData;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumFour;
@@ -42,6 +44,8 @@
 @property (nonatomic, strong) NSMutableArray *fundingSources;
 @property (strong, nonatomic) NSString *fundingSourceStatus;
 @property (nonatomic, strong) NSString *selectedFundingSourceId;
+@property (nonatomic, strong) NSString *paymentId;
+
 
 @property (nonatomic, strong) UITextField *hiddenText;
 

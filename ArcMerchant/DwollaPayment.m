@@ -67,6 +67,7 @@
         dispatch_queue_t queue = dispatch_queue_create("dwolla.task", NULL);
         dispatch_queue_t main = dispatch_get_main_queue();
         
+        /*
         dispatch_async(queue,^{
             
             @try {
@@ -90,6 +91,36 @@
             
             
         });
+         */
+        
+       
+        
+     
+        dispatch_async(queue,^{
+            
+            NSString *balance = @"";
+            @try {
+                
+                balance = [DwollaAPI getBalance];
+                
+                dispatch_async(main,^{
+                    //[self.dwollaBalanceActivity stopAnimating];
+                    self.dwollaBalance = [balance doubleValue];
+                    self.dwollaBalanceText.text = [NSString stringWithFormat:@"$%.2f", self.dwollaBalance];
+                    //[self.dwollaBalanceActivity stopAnimating];
+                    
+                    if (self.dwollaBalance < self.refundAmount) {
+                        self.dwollaBalanceText.textColor = [UIColor redColor];
+                    }else{
+                        self.dwollaBalanceText.textColor = [UIColor colorWithRed:100.0/255.0 green:100.0/255.0 blue:100.0/255.0 alpha:1.0];
+                    }
+                });
+            }
+            @catch (NSException *exception) {
+                //NSLog(@"Exception getting balance");
+            }
+        });
+
         
         [super viewDidLoad];
         // Do any additional setup after loading the view.
@@ -365,12 +396,14 @@
                 
                 
                 
-                //[self performSegueWithIdentifier:@"confirmDwolla" sender:self];
+                [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
                 
                 
             }else{
                 
-                
+                [self performSelector:@selector(createPayment)];
+
+                /*
                 if ([self.fundingSourceStatus isEqualToString:@"success"]) {
                     
                     if ([self.fundingSources count] == 0) {
@@ -412,7 +445,7 @@
                     
                 }
                 
-                
+                */
                 
             }
             
@@ -463,7 +496,9 @@
         [ tempDictionary setObject:amount forKey:@"Amount"];
         
         [ tempDictionary setObject:dwollaToken forKey:@"AuthenticationToken"];
-        [ tempDictionary setObject:self.selectedFundingSourceId forKey:@"FundSourceAccount"];
+        [ tempDictionary setObject:@"" forKey:@"FundSourceAccount"];
+        [ tempDictionary setObject:self.paymentId forKey:@"PaymentId"];
+        [ tempDictionary setObject:self.merchantId forKey:@"MerchantId"];
 
  
         
@@ -500,10 +535,9 @@
         
         [self.activity stopAnimating];
         self.submitButton.enabled = YES;
-        
-        /*
         self.payButton.enabled = YES;
         self.navigationItem.hidesBackButton = NO;
+        
         [rSkybox addEventToSession:@"DwollaPaymentComplete"];
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
@@ -516,7 +550,10 @@
             //success
             self.errorLabel.text = @"";
             
-            [self performSegueWithIdentifier:@"reviewTransaction" sender:self];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully refunded this payment." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            [self.navigationController popViewControllerAnimated:YES];
+            
         } else if([status isEqualToString:@"error"]){
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
             if(errorCode == CANNOT_PROCESS_PAYMENT) {
@@ -537,7 +574,7 @@
         if([errorMsg length] > 0) {
             self.errorLabel.text = errorMsg;
         }
-         */
+         
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"DwollaPayment.paymentComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];

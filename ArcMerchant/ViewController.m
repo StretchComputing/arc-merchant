@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ArcClient.h"
 #import "DwollaAPI.h"
+#import "ArcUtility.h"
 
 @interface ViewController ()
 
@@ -245,14 +246,24 @@
         if ([status isEqualToString:@"success"]) {
             //success
             
-            [[NSUserDefaults standardUserDefaults] setValue:self.username.text forKey:@"customerEmail"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+            ArcUtility *tmp = [[ArcUtility alloc] init];
+            [tmp updatePushToken];
             
-            ArcClient *client = [[ArcClient alloc] init];
-            [client sendPushToken];
+            int resetPassword = [[[responseInfo valueForKey:@"Results"] valueForKey:@"ResetPassword"] intValue];
             
-            [self performSegueWithIdentifier:@"goHome" sender: self];
-            //Do the next thing (go home?)
+            if (resetPassword == 0) {
+                [[NSUserDefaults standardUserDefaults] setValue:self.username.text forKey:@"customerEmail"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                ArcClient *client = [[ArcClient alloc] init];
+                [client sendPushToken];
+                
+                [self performSegueWithIdentifier:@"goHome" sender: self];
+                //Do the next thing (go home?)
+            }else{
+                [self performSegueWithIdentifier:@"resetPassword" sender:self];
+            }
+         
         } else {
             self.errorLabel.text = @"*Invalid credentials, please try again.";
         }

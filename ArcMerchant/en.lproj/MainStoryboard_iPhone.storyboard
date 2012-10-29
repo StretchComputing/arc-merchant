@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="6lJ-3h-viy">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
     </dependencies>
     <scenes>
@@ -55,11 +54,87 @@
                         <outlet property="myTableView" destination="IDg-Ic-uYv" id="RQw-5p-kMc"/>
                         <outlet property="navBar" destination="bjt-m2-txN" id="t8K-eT-Xgd"/>
                         <segue destination="9pB-um-DQO" kind="modal" identifier="goHome" id="C6T-aM-Unj"/>
+                        <segue destination="ZDt-Fd-ZUM" kind="push" identifier="resetPassword" id="sRG-VO-SXG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5" y="105"/>
+            <point key="canvasLocation" x="-149" y="100"/>
+        </scene>
+        <!--Reset Password View Controller-->
+        <scene sceneID="oWC-5r-8z0">
+            <objects>
+                <viewController id="ZDt-Fd-ZUM" customClass="ResetPasswordViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nuW-Fk-bhN">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" id="xMu-Ol-GEw">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Reset Password" id="ha8-lh-3kA">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="Fve-DP-2KU">
+                                            <connections>
+                                                <action selector="cancelAction:" destination="ZDt-Fd-ZUM" id="63I-sg-0tQ"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Please choose a new password" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DA5-wU-MIU" customClass="CorbelBoldLabel">
+                                <rect key="frame" x="3" y="44" width="314" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Password" minimumFontSize="17" id="Cmc-1G-CJ2">
+                                <rect key="frame" x="57" y="89" width="206" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" minimumFontSize="17" id="VpN-Rr-MFL">
+                                <rect key="frame" x="57" y="122" width="206" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="k7c-vb-eHn">
+                                <rect key="frame" x="106" y="188" width="109" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Submit" backgroundImage="rowButton.png">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="submitAction" destination="ZDt-Fd-ZUM" eventType="touchUpInside" id="hdQ-yr-nvg"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="hBJ-yd-HkJ">
+                                <rect key="frame" x="150" y="158" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hHH-6K-ATk"/>
+                    <connections>
+                        <outlet property="activity" destination="hBJ-yd-HkJ" id="RBc-NJ-DBN"/>
+                        <outlet property="cancelAction" destination="Fve-DP-2KU" id="SNJ-oL-CMU"/>
+                        <outlet property="confirmText" destination="VpN-Rr-MFL" id="Cjv-sQ-YHU"/>
+                        <outlet property="passwordText" destination="Cmc-1G-CJ2" id="a0B-h4-k28"/>
+                        <outlet property="submitButton" destination="k7c-vb-eHn" id="ZyD-Kj-YNK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d1e-s1-yAr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="268" y="753"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="XEa-aa-MDH">
@@ -186,6 +261,13 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5mS-AI-9SO">
+                                <rect key="frame" x="0.0" y="100" width="320" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="78" sectionHeaderHeight="22" sectionFooterHeight="22" id="gZE-Sb-BUd">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -306,6 +388,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activity" destination="3Wx-R9-zak" id="M7W-3O-a12"/>
+                        <outlet property="errorLabel" destination="5mS-AI-9SO" id="wuR-zM-u4W"/>
                         <outlet property="myTableView" destination="gZE-Sb-BUd" id="xKT-YT-QBY"/>
                         <outlet property="searchBar" destination="Aa4-zp-sd9" id="1vG-U0-o8L"/>
                         <outlet property="segmentControl" destination="hiN-lX-Eo0" id="BGI-QE-sUO"/>
@@ -555,29 +638,29 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="itemCell" rowHeight="40" id="sso-ID-eCP">
-                                                <rect key="frame" x="0.0" y="22" width="290" height="40"/>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="itemCell" rowHeight="25" id="sso-ID-eCP">
+                                                <rect key="frame" x="0.0" y="22" width="290" height="25"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="290" height="39"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="290" height="24"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tze-2E-q0u">
-                                                            <rect key="frame" x="10" y="9" width="31" height="21"/>
+                                                            <rect key="frame" x="10" y="1" width="31" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" text="12" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cOG-jq-GMU">
-                                                            <rect key="frame" x="223" y="9" width="58" height="21"/>
+                                                            <rect key="frame" x="220" y="1" width="58" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0MK-pK-iYc">
-                                                            <rect key="frame" x="49" y="9" width="167" height="21"/>
+                                                            <rect key="frame" x="49" y="1" width="167" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -608,7 +691,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QzX-48-T6M">
-                                        <rect key="frame" x="229" y="42" width="66" height="21"/>
+                                        <rect key="frame" x="231" y="42" width="66" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="16"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -663,6 +746,13 @@
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="6" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="n8B-8a-dZv">
+                                                            <rect key="frame" x="155" y="48" width="115" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="17"/>
+                                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" text="CREDIT" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZzX-9D-Nl6">
                                                             <rect key="frame" x="14" y="28" width="147" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -671,7 +761,7 @@
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="left" text="Gratuity: $5.34" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LbN-rn-iiw">
-                                                            <rect key="frame" x="14" y="48" width="147" height="21"/>
+                                                            <rect key="frame" x="14" y="48" width="133" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="16"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -809,9 +899,11 @@
                             </textField>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="n98-mD-uV8">
                                 <rect key="frame" x="150" y="118" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="DZ5-vk-9wE">
                                 <rect key="frame" x="0.0" y="114" width="320" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -834,6 +926,20 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Your Dwolla Balance:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mSA-HH-6uL">
+                                <rect key="frame" x="34" y="195" width="171" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aeR-tU-Gcs">
+                                <rect key="frame" x="203" y="195" width="97" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -850,6 +956,7 @@
                         <outlet property="checkNumOne" destination="5mR-cN-fY2" id="nRZ-Lf-AJ6"/>
                         <outlet property="checkNumThree" destination="QiO-Bd-8KP" id="xjb-Rb-jt2"/>
                         <outlet property="checkNumTwo" destination="KaT-fX-TKH" id="MKI-ks-xfg"/>
+                        <outlet property="dwollaBalanceText" destination="aeR-tU-Gcs" id="8JH-jh-NWP"/>
                         <outlet property="errorLabel" destination="DZ5-vk-9wE" id="hrV-iI-7rh"/>
                         <outlet property="payButton" destination="ahb-sB-dr3" id="KXV-z0-ct0"/>
                         <outlet property="refundAmountLabel" destination="VMI-Hr-GWJ" id="A6a-gu-Co6"/>
@@ -888,99 +995,6 @@
         <image name="paid.png" width="64" height="64"/>
         <image name="rowButton.png" width="320" height="100"/>
     </resources>
-    <classes>
-        <class className="DwollaPayment" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DwollaPayment.h"/>
-            <relationships>
-                <relationship kind="action" name="submit:"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="notesText" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="payButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="refundAmountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="refundToLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="InitialController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InitialController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mottoLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="InvoiceActivity" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InvoiceActivity.h"/>
-            <relationships>
-                <relationship kind="action" name="doneSearchAction:"/>
-                <relationship kind="action" name="segmentValueChanged"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="doneSearchButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="segmentControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
-            </relationships>
-        </class>
-        <class className="InvoiceDetails" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InvoiceDetails.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelRefundAction"/>
-                <relationship kind="action" name="closeInvoiceItemsAction"/>
-                <relationship kind="action" name="closeInvoicePaymentsAction"/>
-                <relationship kind="action" name="endText"/>
-                <relationship kind="action" name="refundAllAction"/>
-                <relationship kind="action" name="refundMainAction"/>
-                <relationship kind="action" name="refundPartialAction"/>
-                <relationship kind="action" name="showInvoiceItemsAction"/>
-                <relationship kind="action" name="showPaymentsAction"/>
-                <relationship kind="outlet" name="closeInvoicePaymentsView" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="invoiceAdditionalChargeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="invoiceBaseAmountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="invoiceDateCreatedLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="invoiceDiscountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="invoiceItemsTable" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="invoiceItemsView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="invoiceLastUpdatedLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="invoiceNumberLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="invoicePaymentsTable" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="invoicePaymentsView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="invoiceServiceChargeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="invoiceStatusLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="invoiceTaxLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="invoiceTotalLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="refundAmountText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="refundAmountView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="RefundButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RefundButton.h"/>
-        </class>
-        <class className="RegisterDwollaView" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterDwollaView.h"/>
-        </class>
-        <class className="Settings" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/Settings.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelAction:"/>
-                <relationship kind="action" name="dwollaAuthSwitchSelected"/>
-                <relationship kind="outlet" name="dwollaAuthSwitch" candidateClass="UISwitch"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="signIn"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

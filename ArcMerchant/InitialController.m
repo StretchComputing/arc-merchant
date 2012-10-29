@@ -13,6 +13,7 @@
 #import "ArcClient.h"
 #import "AppDelegate.h"
 #import "ArcUtility.h"
+#import "rSkybox.h"
 
 @interface InitialController ()
 
@@ -42,6 +43,7 @@
             
             UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
             [self presentModalViewController:home animated:NO];
+            [rSkybox addEventToSession:@"homePageDidAppear"];
             
             ArcUtility *tmp = [[ArcUtility alloc] init];
             [tmp updatePushToken];
@@ -49,6 +51,8 @@
         }else{
             UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"SignInPage"];
             [self presentModalViewController:home animated:NO];
+            [rSkybox addEventToSession:@"passwordResetComplete"];
+            [rSkybox addEventToSession:@"signInPageDidAppear"];
         }
          
     }

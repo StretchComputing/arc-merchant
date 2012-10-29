@@ -7,6 +7,8 @@
 //
 
 #import "DwollaFundingSources.h"
+#import "rSkybox.h"
+
 
 @implementation DwollaFundingSources
 
@@ -33,23 +35,28 @@
 
 -(NSMutableArray*)getAlphabetized:(NSString *)direction
 {
-    if ([direction isEqualToString:@"DESC"]) 
-    {
-        [sources sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            DwollaFundingSource* one = (DwollaFundingSource*) obj1;
-            DwollaFundingSource* two = (DwollaFundingSource*) obj2;
-            
-            return [[one getName] compare:[two getName]];
-        }];
-    }
-    else
-    {
-        [sources sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            DwollaFundingSource* one = (DwollaFundingSource*) obj1;
-            DwollaFundingSource* two = (DwollaFundingSource*) obj2;
-            
-            return -1*[[one getName] compare:[two getName]];
-        }];     
+    @try {
+        if ([direction isEqualToString:@"DESC"])
+        {
+            [sources sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                DwollaFundingSource* one = (DwollaFundingSource*) obj1;
+                DwollaFundingSource* two = (DwollaFundingSource*) obj2;
+                
+                return [[one getName] compare:[two getName]];
+            }];
+        }
+        else
+        {
+            [sources sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                DwollaFundingSource* one = (DwollaFundingSource*) obj1;
+                DwollaFundingSource* two = (DwollaFundingSource*) obj2;
+                
+                return -1*[[one getName] compare:[two getName]];
+            }];     
+        }
+        
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DwollaFundingSources.merchantListComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
     return sources;

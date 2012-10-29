@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "InvoiceDetails.h"
 #import "AppDelegate.h"
+#import "rSkybox.h"
 
 @interface InvoiceActivity ()
 
@@ -50,6 +51,7 @@
     @try {
         
 
+        [rSkybox addEventToSession:@"invoiceComplete"];
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         NSString *status = [responseInfo valueForKey:@"status"];

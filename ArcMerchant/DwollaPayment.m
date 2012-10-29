@@ -14,8 +14,8 @@
 
 
 @interface DwollaPayment ()
-
 @end
+
 
 @implementation DwollaPayment
 
@@ -26,10 +26,9 @@
     
     @try {
         
-        
         [rSkybox addEventToSession:@"viewDwollaPaymentScreen"];
         
-     self.title = @"Dwolla Refund";
+        self.title = @"Dwolla Refund";
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentComplete:) name:@"createPaymentNotification" object:nil];
         
@@ -140,7 +139,6 @@
 -(void)viewWillAppear:(BOOL)animated{
     @try {
         
-        
         self.refundToLabel.text = [NSString stringWithFormat:@"Refund To: %@", [self.refundAccountDictionary valueForKey:@"Name"]];
         self.refundAmountLabel.text = [NSString stringWithFormat:@"Refund Amount: $%.2f", self.refundAmount];
         
@@ -196,41 +194,46 @@
 
 
 -(void)setValues:(NSString *)newString{
-    
-    
-    if ([newString length] < 5) {
+    @try {
         
-        @try {
-            self.checkNumOne.text = [newString substringWithRange:NSMakeRange(0, 1)];
-        }
-        @catch (NSException *exception) {
-            self.checkNumOne.text = @"";
+        if ([newString length] < 5) {
+            
+            @try {
+                self.checkNumOne.text = [newString substringWithRange:NSMakeRange(0, 1)];
+            }
+            @catch (NSException *exception) {
+                self.checkNumOne.text = @"";
+            }
+            
+            @try {
+                self.checkNumTwo.text = [newString substringWithRange:NSMakeRange(1, 1)];
+            }
+            @catch (NSException *exception) {
+                self.checkNumTwo.text = @"";
+            }
+            
+            @try {
+                self.checkNumThree.text = [newString substringWithRange:NSMakeRange(2, 1)];
+            }
+            @catch (NSException *exception) {
+                self.checkNumThree.text = @"";
+            }
+            
+            @try {
+                self.checkNumFour.text = [newString substringWithRange:NSMakeRange(3, 1)];
+            }
+            @catch (NSException *exception) {
+                self.checkNumFour.text = @"";
+            }
+            
+            
+            
         }
         
-        @try {
-            self.checkNumTwo.text = [newString substringWithRange:NSMakeRange(1, 1)];
-        }
-        @catch (NSException *exception) {
-            self.checkNumTwo.text = @"";
-        }
-        
-        @try {
-            self.checkNumThree.text = [newString substringWithRange:NSMakeRange(2, 1)];
-        }
-        @catch (NSException *exception) {
-            self.checkNumThree.text = @"";
-        }
-        
-        @try {
-            self.checkNumFour.text = [newString substringWithRange:NSMakeRange(3, 1)];
-        }
-        @catch (NSException *exception) {
-            self.checkNumFour.text = @"";
-        }
-        
-        
-        
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DwollaPayment.setValues" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+    
 }
 
 
@@ -264,6 +267,7 @@
         return TRUE;
     }
     @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DwollaPayment.textView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
 
     }
 }
@@ -271,13 +275,12 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
-    // NSLog(@"NewString: %@", string);
-    //NSLog(@"RangeLength: %d", range.length);
-    //NSLog(@"RangeLoc: %d", range.location);
-    
-    NSUInteger newLength = [self.hiddenText.text length] + [string length] - range.length;
-    
     @try {
+        // NSLog(@"NewString: %@", string);
+        //NSLog(@"RangeLength: %d", range.length);
+        //NSLog(@"RangeLoc: %d", range.location);
+        
+        NSUInteger newLength = [self.hiddenText.text length] + [string length] - range.length;
         
         
         if (newLength > 4) {
@@ -525,7 +528,6 @@
         [client createPayment:loginDict];
     }
     @catch (NSException *e) {
-        
         [rSkybox sendClientLog:@"DwollaPayment.createPayment" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
@@ -598,8 +600,14 @@
 }
 
 - (void)viewDidUnload {
-    [self setRefundToLabel:nil];
-    [self setRefundAmountLabel:nil];
-    [super viewDidUnload];
+    @try {
+        
+        [self setRefundToLabel:nil];
+        [self setRefundAmountLabel:nil];
+        [super viewDidUnload];
+        
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DwollaPayment.viewDidUnload" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 @end

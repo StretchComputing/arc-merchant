@@ -61,8 +61,7 @@
             [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"resetPasswordSuccess"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             [self.navigationController dismissModalViewControllerAnimated:YES];
-            
-            
+            [rSkybox addEventToSession:@"passwordResetComplete"];
             
         } else {
             
@@ -97,6 +96,7 @@
                 self.confirmText.enabled = NO;
                 self.passcodeText.enabled = NO;
                 self.submitButton.enabled = NO;
+                [rSkybox addEventToSession:@"initiated password reset"];
                 
             }else{
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Choose Password" message:@"Your password and confirmation do not match, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];

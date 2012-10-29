@@ -7,27 +7,40 @@
 //
 
 #import "RefundButton.h"
+#import "rSkybox.h"
 
 @implementation RefundButton
 
 
 - (id)initWithCoder:(NSCoder *)decoder {
-    
-    if ((self = [super initWithCoder: decoder])) {
-
+    @try {
         
+        if ((self = [super initWithCoder: decoder])) {
+            
+            
+        }
+        return self;
+        
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"RefundButton.initWithCoder" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return self;
     }
-    return self;
 }
 
 
 - (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+    @try {
+        self = [super initWithFrame:frame];
+        if (self) {
+            // Initialization code
+        }
+        return self;
+        
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"RefundButton.initWithFrame" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return self;
     }
-    return self;
 }
 
 /*

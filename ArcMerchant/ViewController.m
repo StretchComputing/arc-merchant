@@ -23,9 +23,8 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     
-
-    
 }
+
 -(void)viewWillAppear:(BOOL)animated{
     @try {
         [self.myTableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO];
@@ -235,7 +234,7 @@
 
 -(void)signInComplete:(NSNotification *)notification{
     @try {
-        //[rSkybox addEventToSession:@"signInComplete"];
+        [rSkybox addEventToSession:@"signInComplete"];
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         

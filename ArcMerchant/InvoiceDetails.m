@@ -11,266 +11,315 @@
 #import "RefundButton.h"
 #import "DwollaPayment.h"
 #import "DwollaAPI.h"
+#import "rSkybox.h"
 
 @interface InvoiceDetails ()
 
 @end
 
+
 @implementation InvoiceDetails
 
 - (void)viewDidLoad
 {
-    self.title = @"Details";
-    
-    [super viewDidLoad];
-
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = self.view.bounds;
-    UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
-    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
-    [self.view.layer insertSublayer:gradient atIndex:0];
-
-    self.invoiceItemsView.layer.masksToBounds = YES;
-    self.invoiceItemsView.layer.cornerRadius = 4.0;
-    self.invoiceItemsView.layer.borderColor = [[UIColor blackColor] CGColor];
-    self.invoiceItemsView.layer.borderWidth = 2.0;
-    self.invoiceItemsView.hidden = YES;
-    
-    self.invoicePaymentsView.layer.masksToBounds = YES;
-    self.invoicePaymentsView.layer.cornerRadius = 4.0;
-    self.invoicePaymentsView.layer.borderColor = [[UIColor blackColor] CGColor];
-    self.invoicePaymentsView.layer.borderWidth = 2.0;
-    self.invoicePaymentsView.hidden = YES;
-    
-    self.refundAmountView.layer.masksToBounds = YES;
-    self.refundAmountView.layer.cornerRadius = 4.0;
-    self.refundAmountView.layer.borderColor = [[UIColor blackColor] CGColor];
-    self.refundAmountView.layer.borderWidth = 2.0;
-    self.refundAmountView.hidden = YES;
-    
-    [self setLabels];
-    
-    NSMutableArray *paymentArray = [NSMutableArray arrayWithArray:self.myInvoice.payments];
-    
-    for (int i = 0; i < [paymentArray count]; i++) {
+    @try {
         
-        NSDictionary *payment = [paymentArray objectAtIndex:i];
+        self.title = @"Details";
+        [rSkybox addEventToSession:@"viewInvoiceDetails"];
         
-     
-        if ([[payment valueForKey:@"Status"] isEqualToString:@"VOID"]) {
+        [super viewDidLoad];
+        
+        CAGradientLayer *gradient = [CAGradientLayer layer];
+        gradient.frame = self.view.bounds;
+        UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
+        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
+        [self.view.layer insertSublayer:gradient atIndex:0];
+        
+        self.invoiceItemsView.layer.masksToBounds = YES;
+        self.invoiceItemsView.layer.cornerRadius = 4.0;
+        self.invoiceItemsView.layer.borderColor = [[UIColor blackColor] CGColor];
+        self.invoiceItemsView.layer.borderWidth = 2.0;
+        self.invoiceItemsView.hidden = YES;
+        
+        self.invoicePaymentsView.layer.masksToBounds = YES;
+        self.invoicePaymentsView.layer.cornerRadius = 4.0;
+        self.invoicePaymentsView.layer.borderColor = [[UIColor blackColor] CGColor];
+        self.invoicePaymentsView.layer.borderWidth = 2.0;
+        self.invoicePaymentsView.hidden = YES;
+        
+        self.refundAmountView.layer.masksToBounds = YES;
+        self.refundAmountView.layer.cornerRadius = 4.0;
+        self.refundAmountView.layer.borderColor = [[UIColor blackColor] CGColor];
+        self.refundAmountView.layer.borderWidth = 2.0;
+        self.refundAmountView.hidden = YES;
+        
+        [self setLabels];
+        
+        NSMutableArray *paymentArray = [NSMutableArray arrayWithArray:self.myInvoice.payments];
+        
+        for (int i = 0; i < [paymentArray count]; i++) {
             
-            [paymentArray removeObjectAtIndex:i];
-            i--;
+            NSDictionary *payment = [paymentArray objectAtIndex:i];
+            
+            
+            if ([[payment valueForKey:@"Status"] isEqualToString:@"VOID"]) {
+                
+                [paymentArray removeObjectAtIndex:i];
+                i--;
+            }
+            
         }
         
+        self.myInvoice.payments = [NSArray arrayWithArray:paymentArray];
+        
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InvoiceDetails.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
-    
-    self.myInvoice.payments = [NSArray arrayWithArray:paymentArray];
 }
 
 
 -(void)setLabels{
-    
-    double totalAmount = self.myInvoice.baseAmount + self.myInvoice.serviceCharge + self.myInvoice.tax + self.myInvoice.additionalCharge - self.myInvoice.discount;
-    
-    
-    self.invoiceNumberLabel.text = [NSString stringWithFormat:@"Invoice #: %@", self.myInvoice.number];
-    self.invoiceTotalLabel.text = [NSString stringWithFormat:@"$%.2f", totalAmount];
-    self.invoiceStatusLabel.text = self.myInvoice.status;
-    
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
-    NSDate *created = [dateFormat dateFromString:[self.myInvoice.dateCreated substringToIndex:19]];
-    NSDate *lastUpdated = [dateFormat dateFromString:[self.myInvoice.lastUpdated substringToIndex:19]];
-
-    [dateFormat setDateFormat:@"MM/dd hh:mm aa"];
-    
-    self.invoiceDateCreatedLabel.text = [dateFormat stringFromDate:created];
-    self.invoiceLastUpdatedLabel.text = [dateFormat stringFromDate:lastUpdated];
-    
-    self.invoiceBaseAmountLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.baseAmount];
-    self.invoiceServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
-    self.invoiceTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
-    self.invoiceDiscountLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.discount];
-    self.invoiceAdditionalChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.additionalCharge];
-
+    @try {
+        
+        double totalAmount = self.myInvoice.baseAmount + self.myInvoice.serviceCharge + self.myInvoice.tax + self.myInvoice.additionalCharge - self.myInvoice.discount;
+        
+        
+        self.invoiceNumberLabel.text = [NSString stringWithFormat:@"Invoice #: %@", self.myInvoice.number];
+        self.invoiceTotalLabel.text = [NSString stringWithFormat:@"$%.2f", totalAmount];
+        self.invoiceStatusLabel.text = self.myInvoice.status;
+        
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+        NSDate *created = [dateFormat dateFromString:[self.myInvoice.dateCreated substringToIndex:19]];
+        NSDate *lastUpdated = [dateFormat dateFromString:[self.myInvoice.lastUpdated substringToIndex:19]];
+        
+        [dateFormat setDateFormat:@"MM/dd hh:mm aa"];
+        
+        self.invoiceDateCreatedLabel.text = [dateFormat stringFromDate:created];
+        self.invoiceLastUpdatedLabel.text = [dateFormat stringFromDate:lastUpdated];
+        
+        self.invoiceBaseAmountLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.baseAmount];
+        self.invoiceServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
+        self.invoiceTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
+        self.invoiceDiscountLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.discount];
+        self.invoiceAdditionalChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.additionalCharge];
+        
+        
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InvoiceDetails.setLabels" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
     
     
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    if (tableView == self.invoiceItemsTable) {
-        return [self.myInvoice.items count];
+    @try {
+        
+        if (tableView == self.invoiceItemsTable) {
+            return [self.myInvoice.items count];
+        }
+        NSLog(@"Count: %d", [self.myInvoice.payments count]);
+        return [self.myInvoice.payments count];
+        
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InvoiceDetails.tableView:numberOfRowsInSection" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
-    NSLog(@"Count: %d", [self.myInvoice.payments count]);
-    return [self.myInvoice.payments count];
 }
 
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView == self.invoiceItemsTable) {
-        return 25;
+    @try {
+        if (tableView == self.invoiceItemsTable) {
+            return 25;
+        }
+        return 70;
+        
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InvoiceDetails.tableView:heightForRowAtIndexPath" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
-    return 70;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-   
-    if (tableView == self.invoiceItemsTable) {
+    @try {
         
-    }else{
-  
+        if (tableView == self.invoiceItemsTable) {
+            
+        }else{
+            
+        }
+        
+        
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InvoiceDetails.tableView:didSelectRowAtIndexPath" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
-    if (tableView == self.invoiceItemsTable) {
-        static NSString *invoiceCell=@"itemCell";
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:invoiceCell];
-        
-        
-        
-        UILabel *amountLabel =  (UILabel *)[cell.contentView viewWithTag:1];
-        UILabel *descriptionLabel = (UILabel *)[cell.contentView viewWithTag:2];
-        UILabel *priceLabel = (UILabel *)[cell.contentView viewWithTag:3];
-        
-        if ([self.myInvoice.items count] == 0) {
+    @try {
+        if (tableView == self.invoiceItemsTable) {
+            static NSString *invoiceCell=@"itemCell";
             
-        }else{
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:invoiceCell];
             
-            NSDictionary *item = [self.myInvoice.items objectAtIndex:indexPath.row];
             
-            amountLabel.text = [[item valueForKey:@"Amount"] stringValue];
-            descriptionLabel.text = [item valueForKey:@"Description"];
-            priceLabel.text = [NSString stringWithFormat:@"$%@", [[item valueForKey:@"Value"] stringValue]];
-
             
-        }
-        
-        
-        
-        return cell;
-        
-
-    }else{
-        
-        static NSString *invoiceCell=@"paymentCell";
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:invoiceCell];
-        
-        
-        UILabel *nameLabel =  (UILabel *)[cell.contentView viewWithTag:1];
-        UILabel *priceLabel = (UILabel *)[cell.contentView viewWithTag:2];
-        UILabel *typeLabel = (UILabel *)[cell.contentView viewWithTag:3];
-        UILabel *tipLabel = (UILabel *)[cell.contentView viewWithTag:4];
-        RefundButton *refundButton = (RefundButton *)[cell.contentView viewWithTag:5];
-        
-        UILabel *voidLabel = (UILabel *)[cell.contentView viewWithTag:6];
-
-
-        if ([self.myInvoice.items count] == 0) {
-            voidLabel.text = @"";
-        }else{
-            voidLabel.hidden = YES;
-            NSDictionary *payment = [self.myInvoice.payments objectAtIndex:indexPath.row];
+            UILabel *amountLabel =  (UILabel *)[cell.contentView viewWithTag:1];
+            UILabel *descriptionLabel = (UILabel *)[cell.contentView viewWithTag:2];
+            UILabel *priceLabel = (UILabel *)[cell.contentView viewWithTag:3];
             
-            nameLabel.text = [payment valueForKey:@"Name"];
-            
-            double amount = [[payment valueForKey:@"Amount"] doubleValue];
-            priceLabel.text = [NSString stringWithFormat:@"$%.2f", amount];
-            
-            typeLabel.text = [payment valueForKey:@"Type"];
-            
-            double gratuity = [[payment valueForKey:@"Gratuity"] doubleValue];
-            tipLabel.text = [NSString stringWithFormat:@"Gratuity: $%.2f", gratuity];
-            
-            if ([[payment valueForKey:@"Type"] isEqualToString:@"DWOLLA"]){
+            if ([self.myInvoice.items count] == 0) {
                 
-                if (![[payment valueForKey:@"Status"] isEqualToString:@"PAID"]) {
-                    refundButton.hidden = YES;
-                    voidLabel.hidden = NO;
-                    voidLabel.text = [NSString stringWithFormat:@"*%@*", [payment valueForKey:@"Status"]];
-                }else{
-                    refundButton.hidden = NO;
-                    refundButton.selectedRow = indexPath.row;
-                    [refundButton addTarget:self action:@selector(refundPayment:) forControlEvents:UIControlEventTouchUpInside];
-                }
-           
             }else{
-                voidLabel.hidden = NO;
-                voidLabel.text = [NSString stringWithFormat:@"*%@*", [payment valueForKey:@"Status"]];
-
-                refundButton.hidden = YES;
+                
+                NSDictionary *item = [self.myInvoice.items objectAtIndex:indexPath.row];
+                
+                amountLabel.text = [[item valueForKey:@"Amount"] stringValue];
+                descriptionLabel.text = [item valueForKey:@"Description"];
+                priceLabel.text = [NSString stringWithFormat:@"$%@", [[item valueForKey:@"Value"] stringValue]];
+                
+                
             }
             
+            
+            
+            return cell;
+            
+            
+        }else{
+            
+            static NSString *invoiceCell=@"paymentCell";
+            
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:invoiceCell];
+            
+            
+            UILabel *nameLabel =  (UILabel *)[cell.contentView viewWithTag:1];
+            UILabel *priceLabel = (UILabel *)[cell.contentView viewWithTag:2];
+            UILabel *typeLabel = (UILabel *)[cell.contentView viewWithTag:3];
+            UILabel *tipLabel = (UILabel *)[cell.contentView viewWithTag:4];
+            RefundButton *refundButton = (RefundButton *)[cell.contentView viewWithTag:5];
+            
+            UILabel *voidLabel = (UILabel *)[cell.contentView viewWithTag:6];
+            
+            
+            if ([self.myInvoice.items count] == 0) {
+                voidLabel.text = @"";
+            }else{
+                voidLabel.hidden = YES;
+                NSDictionary *payment = [self.myInvoice.payments objectAtIndex:indexPath.row];
+                
+                nameLabel.text = [payment valueForKey:@"Name"];
+                
+                double amount = [[payment valueForKey:@"Amount"] doubleValue];
+                priceLabel.text = [NSString stringWithFormat:@"$%.2f", amount];
+                
+                typeLabel.text = [payment valueForKey:@"Type"];
+                
+                double gratuity = [[payment valueForKey:@"Gratuity"] doubleValue];
+                tipLabel.text = [NSString stringWithFormat:@"Gratuity: $%.2f", gratuity];
+                
+                if ([[payment valueForKey:@"Type"] isEqualToString:@"DWOLLA"]){
+                    
+                    if (![[payment valueForKey:@"Status"] isEqualToString:@"PAID"]) {
+                        refundButton.hidden = YES;
+                        voidLabel.hidden = NO;
+                        voidLabel.text = [NSString stringWithFormat:@"*%@*", [payment valueForKey:@"Status"]];
+                    }else{
+                        refundButton.hidden = NO;
+                        refundButton.selectedRow = indexPath.row;
+                        [refundButton addTarget:self action:@selector(refundPayment:) forControlEvents:UIControlEventTouchUpInside];
+                    }
+                    
+                }else{
+                    voidLabel.hidden = NO;
+                    voidLabel.text = [NSString stringWithFormat:@"*%@*", [payment valueForKey:@"Status"]];
+                    
+                    refundButton.hidden = YES;
+                }
+                
+            }
+            return cell;
         }
-        return cell;
+        
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InvoiceDetails.tableView:cellForRowAtIndexPath" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+    
 }
 
 
 -(void)refundPayment:(id)sender{
-    
-    NSString *token = @"";
     @try {
-        token = [DwollaAPI getAccessToken];
-    }
-    @catch (NSException *exception) {
-        token = nil;
-    }
-
-
-    if ([token length] > 0) {
-        RefundButton *tmpButton = (RefundButton *)sender;
         
-        NSDictionary *payment = [self.myInvoice.payments objectAtIndex:tmpButton.selectedRow];
-        
-        self.refundDictionary = [NSDictionary dictionary];
-        self.refundDictionary = payment;
+        NSString *token = @"";
+        @try {
+            token = [DwollaAPI getAccessToken];
+        }
+        @catch (NSException *exception) {
+            token = nil;
+        }
         
         
-        [self refundAllAction];
+        if ([token length] > 0) {
+            RefundButton *tmpButton = (RefundButton *)sender;
+            
+            NSDictionary *payment = [self.myInvoice.payments objectAtIndex:tmpButton.selectedRow];
+            
+            self.refundDictionary = [NSDictionary dictionary];
+            self.refundDictionary = payment;
+            
+            
+            [self refundAllAction];
+            
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Dwolla Accout" message:@"Please log into your Dwolla Account in the ArcMerchant Settings before issuing refunds." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
         
-    }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Dwolla Accout" message:@"Please log into your Dwolla Account in the ArcMerchant Settings before issuing refunds." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InvoiceDetails.refundPayment" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
  
 }
 
 - (IBAction)showInvoiceItemsAction {
-    
-    if ([self.myInvoice.items count] == 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"None Found" message:@"There were no items found on this invoice." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
-    }else{
+    @try {
         
-        self.invoiceItemsView.hidden = NO;
-        [self.invoiceItemsTable reloadData];
+        if ([self.myInvoice.items count] == 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"None Found" message:@"There were no items found on this invoice." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }else{
+            
+            self.invoiceItemsView.hidden = NO;
+            [self.invoiceItemsTable reloadData];
+        }
+        
+        
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InvoiceDetails.showInvoiceItemsAction" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
-    
   
 }
 
 - (IBAction)showPaymentsAction {
-    
-    if ([self.myInvoice.payments count] == 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"None Found" message:@"There were no payments found on this invoice." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
-    }else{
-        self.invoicePaymentsView.hidden= NO;
-        [self.invoicePaymentsTable reloadData];
+    @try {
+        if ([self.myInvoice.payments count] == 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"None Found" message:@"There were no payments found on this invoice." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }else{
+            self.invoicePaymentsView.hidden= NO;
+            [self.invoicePaymentsTable reloadData];
+        }
+        
+        
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InvoiceDetails.showPaymentsAction" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
-   
+    
 }
 
 - (IBAction)closeInvoicePaymentsAction {
@@ -297,76 +346,89 @@
 }
 
 - (IBAction)refundAllAction {
+    @try {
+        [rSkybox addEventToSession:@"refundRequested"];
+        double amount = [[self.refundDictionary valueForKey:@"Amount"] doubleValue];
+        double gratuity = [[self.refundDictionary valueForKey:@"Gratuity"] doubleValue];
+        
+        self.refundAmount = amount + gratuity;
+        [self goDwollaPay];
+        
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InvoiceDetails.refundAllAction" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
     
-    double amount = [[self.refundDictionary valueForKey:@"Amount"] doubleValue];
-    double gratuity = [[self.refundDictionary valueForKey:@"Gratuity"] doubleValue];
-    
-    self.refundAmount = amount + gratuity;
-    [self goDwollaPay];
 }
 
 -(void)goDwollaPay{
-    
-    DwollaPayment *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"refundDwolla"];
-    tmp.refundAmount = self.refundAmount;
-    tmp.refundAccountDictionary = self.refundDictionary;
-    tmp.invoiceId = self.myInvoice.invoiceId;
-    tmp.paymentId = [self.refundDictionary valueForKey:@"PaymentId"];
-    
-    
-    tmp.merchantId = [NSString stringWithFormat:@"%d", self.myInvoice.merchantId];
-    [self.navigationController pushViewController:tmp animated:YES];
-    
+    @try {
+        
+        DwollaPayment *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"refundDwolla"];
+        tmp.refundAmount = self.refundAmount;
+        tmp.refundAccountDictionary = self.refundDictionary;
+        tmp.invoiceId = self.myInvoice.invoiceId;
+        tmp.paymentId = [self.refundDictionary valueForKey:@"PaymentId"];
+        
+        
+        tmp.merchantId = [NSString stringWithFormat:@"%d", self.myInvoice.merchantId];
+        [self.navigationController pushViewController:tmp animated:YES];
+        
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InvoiceDetails.goDwollaPay" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 - (IBAction)refundMainAction {
-    
-    
-    NSString *token = @"";
     @try {
-        token = [DwollaAPI getAccessToken];
-    }
-    @catch (NSException *exception) {
-        token = nil;
-    }
-    
-    
-    if ([token length] > 0) {
         
-        
-        if ([self.myInvoice.payments count] > 0) {
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Multiple Payments" message:@"Multiple payments were found on this invoice, please select which you would like to refund" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-            [self showPaymentsAction];
-            
-        }else{
-            
-            NSDictionary *payment = [self.myInvoice.payments objectAtIndex:0];
-            
-            if ([[payment valueForKey:@"Type"] isEqualToString:@"DWOLLA"]) {
-                self.refundDictionary = [NSDictionary dictionary];
-                self.refundDictionary = payment;
-                
-                [self refundAllAction];
-            }else{
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Dwolla Payments" message:@"The payment on this invoice was not made with Dwolla, and therefore is not refundable" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [alert show];
-            }
-          
-            
+        NSString *token = @"";
+        @try {
+            token = [DwollaAPI getAccessToken];
+        }
+        @catch (NSException *exception) {
+            token = nil;
         }
         
         
+        if ([token length] > 0) {
+            
+            
+            if ([self.myInvoice.payments count] > 0) {
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Multiple Payments" message:@"Multiple payments were found on this invoice, please select which you would like to refund" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+                [self showPaymentsAction];
+                
+            }else{
+                
+                NSDictionary *payment = [self.myInvoice.payments objectAtIndex:0];
+                
+                if ([[payment valueForKey:@"Type"] isEqualToString:@"DWOLLA"]) {
+                    self.refundDictionary = [NSDictionary dictionary];
+                    self.refundDictionary = payment;
+                    
+                    [self refundAllAction];
+                }else{
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Dwolla Payments" message:@"The payment on this invoice was not made with Dwolla, and therefore is not refundable" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                }
+                
+                
+            }
+            
+            
+            
+            
+            
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Dwolla Accout" message:@"Please log into your Dwolla Account in the ArcMerchant Settings before issuing refunds." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
         
-     
         
-    }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Dwolla Accout" message:@"Please log into your Dwolla Account in the ArcMerchant Settings before issuing refunds." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InvoiceDetails.refundMainAction" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
-    
-    
     
 }
 @end

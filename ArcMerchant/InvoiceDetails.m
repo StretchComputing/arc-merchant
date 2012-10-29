@@ -49,6 +49,23 @@
     self.refundAmountView.hidden = YES;
     
     [self setLabels];
+    
+    NSMutableArray *paymentArray = [NSMutableArray arrayWithArray:self.myInvoice.payments];
+    
+    for (int i = 0; i < [paymentArray count]; i++) {
+        
+        NSDictionary *payment = [paymentArray objectAtIndex:i];
+        
+     
+        if ([[payment valueForKey:@"Status"] isEqualToString:@"VOID"]) {
+            
+            [paymentArray removeObjectAtIndex:i];
+            i--;
+        }
+        
+    }
+    
+    self.myInvoice.payments = [NSArray arrayWithArray:paymentArray];
 }
 
 
@@ -95,7 +112,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == self.invoiceItemsTable) {
-        return 40;
+        return 25;
     }
     return 70;
 }
@@ -134,7 +151,7 @@
             
             amountLabel.text = [[item valueForKey:@"Amount"] stringValue];
             descriptionLabel.text = [item valueForKey:@"Description"];
-            priceLabel.text = [[item valueForKey:@"Value"] stringValue];
+            priceLabel.text = [NSString stringWithFormat:@"$%@", [[item valueForKey:@"Value"] stringValue]];
 
             
         }
@@ -156,11 +173,14 @@
         UILabel *typeLabel = (UILabel *)[cell.contentView viewWithTag:3];
         UILabel *tipLabel = (UILabel *)[cell.contentView viewWithTag:4];
         RefundButton *refundButton = (RefundButton *)[cell.contentView viewWithTag:5];
+        
+        UILabel *voidLabel = (UILabel *)[cell.contentView viewWithTag:6];
+
 
         if ([self.myInvoice.items count] == 0) {
-            
+            voidLabel.text = @"";
         }else{
-            
+            voidLabel.hidden = YES;
             NSDictionary *payment = [self.myInvoice.payments objectAtIndex:indexPath.row];
             
             nameLabel.text = [payment valueForKey:@"Name"];
@@ -174,10 +194,21 @@
             tipLabel.text = [NSString stringWithFormat:@"Gratuity: $%.2f", gratuity];
             
             if ([[payment valueForKey:@"Type"] isEqualToString:@"DWOLLA"]){
-                refundButton.hidden = NO;
-                refundButton.selectedRow = indexPath.row;
-                [refundButton addTarget:self action:@selector(refundPayment:) forControlEvents:UIControlEventTouchUpInside];
+                
+                if (![[payment valueForKey:@"Status"] isEqualToString:@"PAID"]) {
+                    refundButton.hidden = YES;
+                    voidLabel.hidden = NO;
+                    voidLabel.text = [NSString stringWithFormat:@"*%@*", [payment valueForKey:@"Status"]];
+                }else{
+                    refundButton.hidden = NO;
+                    refundButton.selectedRow = indexPath.row;
+                    [refundButton addTarget:self action:@selector(refundPayment:) forControlEvents:UIControlEventTouchUpInside];
+                }
+           
             }else{
+                voidLabel.hidden = NO;
+                voidLabel.text = [NSString stringWithFormat:@"*%@*", [payment valueForKey:@"Status"]];
+
                 refundButton.hidden = YES;
             }
             
@@ -205,6 +236,7 @@
         
         self.refundDictionary = [NSDictionary dictionary];
         self.refundDictionary = payment;
+        
         
         [self refundAllAction];
         
@@ -279,6 +311,10 @@
     tmp.refundAmount = self.refundAmount;
     tmp.refundAccountDictionary = self.refundDictionary;
     tmp.invoiceId = self.myInvoice.invoiceId;
+    tmp.paymentId = [self.refundDictionary valueForKey:@"PaymentId"];
+    
+    
+    tmp.merchantId = [NSString stringWithFormat:@"%d", self.myInvoice.merchantId];
     [self.navigationController pushViewController:tmp animated:YES];
     
 }

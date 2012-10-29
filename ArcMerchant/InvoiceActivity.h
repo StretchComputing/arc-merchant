@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSMutableArray *filterInvoicesArray;
 @property (nonatomic, strong) NSMutableArray *typeFilterInvoicesArray;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property BOOL isIos6;

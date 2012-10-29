@@ -67,6 +67,8 @@
 		908A6E241628994400041727 /* paid.png in Resources */ = {isa = PBXBuildFile; fileRef = 908A6E211628994400041727 /* paid.png */; };
 		908A6E251628994400041727 /* partial.png in Resources */ = {isa = PBXBuildFile; fileRef = 908A6E221628994400041727 /* partial.png */; };
 		9090205116266D44001B8428 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9090205016266D44001B8428 /* Default-568h@2x.png */; };
+		9094CAA7163E07CF0036D8BA /* ArcUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094CAA6163E07CF0036D8BA /* ArcUtility.m */; };
+		90A5AAF11638DFED009C278A /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A5AAF01638DFEC009C278A /* ResetPasswordViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -179,6 +181,10 @@
 		908A6E211628994400041727 /* paid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paid.png; sourceTree = "<group>"; };
 		908A6E221628994400041727 /* partial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = partial.png; sourceTree = "<group>"; };
 		9090205016266D44001B8428 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		9094CAA5163E07CF0036D8BA /* ArcUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArcUtility.h; sourceTree = "<group>"; };
+		9094CAA6163E07CF0036D8BA /* ArcUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArcUtility.m; sourceTree = "<group>"; };
+		90A5AAEF1638DFEC009C278A /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
+		90A5AAF01638DFEC009C278A /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +242,8 @@
 				9014224E161759680051D913 /* InvoiceActivity.h */,
 				902E01C716226B120013CB73 /* Default@2x.png */,
 				902E01C816226B130013CB73 /* Default.png */,
+				90A5AAEF1638DFEC009C278A /* ResetPasswordViewController.h */,
+				90A5AAF01638DFEC009C278A /* ResetPasswordViewController.m */,
 				9014224F161759680051D913 /* InvoiceActivity.m */,
 				902E01C416226B080013CB73 /* InitialController.h */,
 				902E01C516226B090013CB73 /* InitialController.m */,
@@ -261,6 +269,8 @@
 				9014225A161782DA0051D913 /* RegisterDwollaView.m */,
 				906C813415FD6E270012AC9D /* ArcClient.h */,
 				906C813515FD6E270012AC9D /* ArcClient.m */,
+				9094CAA5163E07CF0036D8BA /* ArcUtility.h */,
+				9094CAA6163E07CF0036D8BA /* ArcUtility.m */,
 				906C816E15FD6FE60012AC9D /* rSkybox.h */,
 				906C816F15FD6FE60012AC9D /* rSkybox.m */,
 				906C817115FD70090012AC9D /* UIDevice-Hardware.h */,
@@ -468,6 +478,8 @@
 				902E01BA16224E2B0013CB73 /* RefundButton.m in Sources */,
 				902E01C1162260D70013CB73 /* DwollaPayment.m in Sources */,
 				902E01C616226B090013CB73 /* InitialController.m in Sources */,
+				90A5AAF11638DFED009C278A /* ResetPasswordViewController.m in Sources */,
+				9094CAA7163E07CF0036D8BA /* ArcUtility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

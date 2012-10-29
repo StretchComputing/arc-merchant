@@ -15,7 +15,8 @@ NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
 //NSString *_arcUrl = @"http://arc.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 
-NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD
+NSString *_arcServersUrl = @"http://arc-servers.dagher.net.co/rest/v1/"; // Servers API: CLOUD II
+//NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD
 //NSString *_arcServersUrl = @"http://dtnetwork.dyndns.org:8700/arc-servers/rest/v1/"; // Servers API: Jim's Place
 
 int const USER_ALREADY_EXISTS = 200;
@@ -36,17 +37,24 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 @implementation ArcClient
 
 
+-(NSString *)getCurrentUrl{
+    return _arcUrl;
+}
 - (id)init {
     if (self = [super init]) {
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
            // _arcUrl = [NSString stringWithFormat:@"http://%@/rest/v1/", [prefs valueForKey:@"arcUrl"]];
+            NSLog(@"ArcURL: %@", _arcUrl);
+            //_arcUrl = @"http://68.57.205.193:8700/rest/v1/";
         }
         
     }
     return self;
 }
+
+
 -(void)getServer{
     @try {
         [rSkybox addEventToSession:@"getServer"];
@@ -67,7 +75,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetServer"];
-        //NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.getServer" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -172,7 +180,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSDate *now = [NSDate date];
         NSDate *yest = [now dateByAddingTimeInterval:-129600];
-        
+        //NSDate *yest = [now dateByAddingTimeInterval:-260000];
+
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS"];
         
@@ -197,7 +206,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         
         NSString *getInvoiceUrl = [NSString stringWithFormat:@"%@invoices/list", _arcUrl];
-        //NSLog(@"getInvoiceUrl: %@", getInvoiceUrl);
+        NSLog(@"getInvoiceUrl: %@", getInvoiceUrl);
         
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getInvoiceUrl]];
@@ -355,6 +364,35 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     }
 }
 
+-(void)resetPassword:(NSDictionary *)pairs{
+    
+    @try {
+        [rSkybox addEventToSession:@"resetPassword"];
+        api = ResetPassword;
+        
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        NSString *createReviewUrl = [NSString stringWithFormat:@"%@customers/passwordreset", _arcUrl, nil];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createReviewUrl]];
+        //[request setHTTPMethod: @"PUT"];
+        [request setHTTPMethod: @"POST"];
+        
+        [request setHTTPBody: requestData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        
+        //NSLog(@"Request String: %@", requestString);
+        
+        self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"resetPassword"];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.createReview" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
     
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
@@ -429,6 +467,11 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             if (response && httpSuccess) {
                 [self setUrl:response];
             }
+        } else if(api == ResetPassword) {
+            if (response && httpSuccess) {
+                responseInfo = [self resetPasswordResponse:response];
+            }
+            notificationType = @"resetPasswordNotification";
         }
         
         if(!httpSuccess) {
@@ -448,6 +491,29 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     }
 }
 
+-(NSDictionary *) resetPasswordResponse:(NSDictionary *)response {
+    
+    @try {
+        
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        if (success){
+            responseInfo = @{@"status": @"success", @"apiResponse": response};
+        } else {
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+        }
+        return responseInfo;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.resetPasswordResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+    }
+    
+    
+}
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
     @try {
@@ -646,7 +712,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             //Add this customer to the DB
             [self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
             
-            responseInfo = @{@"status": @"success"};
+            responseInfo = @{@"status": @"success", @"Results":customer};
         } else {
             NSString *status = @"error";
             int errorCode = [self getErrorCode:response];

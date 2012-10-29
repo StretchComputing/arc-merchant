@@ -57,6 +57,9 @@
         NSString *errorMsg = @"";
         if ([status isEqualToString:@"success"]) {
             
+            self.myTableView.hidden = NO;
+            self.errorLabel.hidden = YES;
+
             self.allInvoicesArray = [NSMutableArray array];
             self.filterInvoicesArray = [NSMutableArray array];
 
@@ -106,8 +109,8 @@
             
         } else if([status isEqualToString:@"error"]){
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
-            if(errorCode == INVOICE_NOT_FOUND) {
-                errorMsg = @"Can not find invoice.";
+            if(errorCode == 101) {
+                errorMsg = @"No open Invoices Found.";
             } else {
                 errorMsg = ARC_ERROR_MSG;
             }
@@ -117,7 +120,11 @@
         }
         
         if([errorMsg length] > 0) {
-            //self.errorLabel.text = errorMsg;
+            self.errorLabel.text = errorMsg;
+            if ([self.allInvoicesArray count] == 0) {
+                self.myTableView.hidden = YES;
+                self.errorLabel.hidden = NO;
+            }
         }
     }
     @catch (NSException *e) {
@@ -352,6 +359,7 @@
 - (void)viewDidUnload {
     [self setDoneSearchButton:nil];
     [self setToolbar:nil];
+    [self setErrorLabel:nil];
     [super viewDidUnload];
 }
 - (IBAction)doneSearchAction:(id)sender {

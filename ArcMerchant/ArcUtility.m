@@ -51,23 +51,27 @@
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcClient.createReview" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ArcUtility.updatePushToken" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
     
-    NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-    NSInteger statusCode = [httpResponse statusCode];
-    NSLog(@"HTTP Status Code: %d", statusCode);
+    @try {
+        
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        NSInteger statusCode = [httpResponse statusCode];
+        NSLog(@"HTTP Status Code: %d", statusCode);
+        
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcUtility.connection" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     @try {
-        
-
-        
+    
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
@@ -79,10 +83,8 @@
        
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcClient.connectionDidFinishLoading" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ArcUtility.connectionDidFinishLoading" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
-
-
 
 @end

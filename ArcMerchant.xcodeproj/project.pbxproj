@@ -69,6 +69,9 @@
 		9090205116266D44001B8428 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9090205016266D44001B8428 /* Default-568h@2x.png */; };
 		9094CAA7163E07CF0036D8BA /* ArcUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094CAA6163E07CF0036D8BA /* ArcUtility.m */; };
 		90A5AAF11638DFED009C278A /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A5AAF01638DFEC009C278A /* ResetPasswordViewController.m */; };
+		9FEB3258163E1895009FE7D9 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEB3257163E1895009FE7D9 /* UIDevice-Hardware.m */; };
+		9FEB325B163E1E73009FE7D9 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FEB325A163E1E73009FE7D9 /* CrashReporter.framework */; };
+		9FEB325D163E1F24009FE7D9 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FEB325C163E1F24009FE7D9 /* libCrashReporter-iphoneos.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -185,6 +188,10 @@
 		9094CAA6163E07CF0036D8BA /* ArcUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArcUtility.m; sourceTree = "<group>"; };
 		90A5AAEF1638DFEC009C278A /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		90A5AAF01638DFEC009C278A /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
+		9FEB3256163E1895009FE7D9 /* UIDevice-Hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice-Hardware.h"; sourceTree = "<group>"; };
+		9FEB3257163E1895009FE7D9 /* UIDevice-Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice-Hardware.m"; sourceTree = "<group>"; };
+		9FEB325A163E1E73009FE7D9 /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CrashReporter.framework; sourceTree = "<group>"; };
+		9FEB325C163E1F24009FE7D9 /* libCrashReporter-iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCrashReporter-iphoneos.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,10 +199,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FEB325D163E1F24009FE7D9 /* libCrashReporter-iphoneos.a in Frameworks */,
 				906C813315FD6DF20012AC9D /* QuartzCore.framework in Frameworks */,
 				906C810F15FD6C990012AC9D /* UIKit.framework in Frameworks */,
 				906C811115FD6C990012AC9D /* Foundation.framework in Frameworks */,
 				906C811315FD6C990012AC9D /* CoreGraphics.framework in Frameworks */,
+				9FEB325B163E1E73009FE7D9 /* CrashReporter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,6 +215,8 @@
 			isa = PBXGroup;
 			children = (
 				9090205016266D44001B8428 /* Default-568h@2x.png */,
+				9FEB325C163E1F24009FE7D9 /* libCrashReporter-iphoneos.a */,
+				9FEB325A163E1E73009FE7D9 /* CrashReporter.framework */,
 				906C813215FD6DF20012AC9D /* QuartzCore.framework */,
 				906C811415FD6C990012AC9D /* ArcMerchant */,
 				906C810D15FD6C990012AC9D /* Frameworks */,
@@ -234,6 +245,7 @@
 		906C811415FD6C990012AC9D /* ArcMerchant */ = {
 			isa = PBXGroup;
 			children = (
+				9FEB3255163E1895009FE7D9 /* rSkyboxHelpers */,
 				906C811D15FD6C990012AC9D /* AppDelegate.h */,
 				906C811E15FD6C990012AC9D /* AppDelegate.m */,
 				906C812015FD6C990012AC9D /* MainStoryboard_iPhone.storyboard */,
@@ -361,6 +373,15 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
+		9FEB3255163E1895009FE7D9 /* rSkyboxHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				9FEB3256163E1895009FE7D9 /* UIDevice-Hardware.h */,
+				9FEB3257163E1895009FE7D9 /* UIDevice-Hardware.m */,
+			);
+			path = rSkyboxHelpers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -480,6 +501,7 @@
 				902E01C616226B090013CB73 /* InitialController.m in Sources */,
 				90A5AAF11638DFED009C278A /* ResetPasswordViewController.m in Sources */,
 				9094CAA7163E07CF0036D8BA /* ArcUtility.m in Sources */,
+				9FEB3258163E1895009FE7D9 /* UIDevice-Hardware.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,9 +556,17 @@
 		902E01E2162282470013CB73 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ArcMerchant/ArcMerchant-Prefix.pch";
 				INFOPLIST_FILE = "ArcMerchant/ArcMerchant-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -600,9 +630,17 @@
 		906C812C15FD6C990012AC9D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ArcMerchant/ArcMerchant-Prefix.pch";
 				INFOPLIST_FILE = "ArcMerchant/ArcMerchant-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -612,9 +650,17 @@
 		906C812D15FD6C990012AC9D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ArcMerchant/ArcMerchant-Prefix.pch";
 				INFOPLIST_FILE = "ArcMerchant/ArcMerchant-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

@@ -7,16 +7,23 @@
 //
 
 #import "DwollaContacts.h"
+#import "rSkybox.h"
 
 @implementation DwollaContacts
 
 -(id)initWithSuccess:(BOOL)_success 
             contacts:(NSMutableArray*)_contacts
 {
-    if (self) 
-    {
-        success = _success;
-        contacts = _contacts;
+    @try {
+        
+        if (self)
+        {
+            success = _success;
+            contacts = _contacts;
+        }
+        
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DwollaContacts.initWithSuccess" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     return self;
 }
@@ -33,25 +40,31 @@
 
 -(NSMutableArray*)getAlphabetized:(NSString *)direction
 {
-    if ([direction isEqualToString:@"DESC"]) 
-    {
-        [contacts sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            DwollaContact* one = (DwollaContact*) obj1;
-            DwollaContact* two = (DwollaContact*) obj2;
-            
-            return [[one getName] compare:[two getName]];
-        }];
+    @try {
+        
+        if ([direction isEqualToString:@"DESC"])
+        {
+            [contacts sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                DwollaContact* one = (DwollaContact*) obj1;
+                DwollaContact* two = (DwollaContact*) obj2;
+                
+                return [[one getName] compare:[two getName]];
+            }];
+        }
+        else
+        {
+            [contacts sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                DwollaContact* one = (DwollaContact*) obj1;
+                DwollaContact* two = (DwollaContact*) obj2;
+                
+                return -1*[[one getName] compare:[two getName]];
+            }];     
+        }
+        
+        
+    } @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DwollaContacts.getAlphabetized" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
-    else
-    {
-        [contacts sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            DwollaContact* one = (DwollaContact*) obj1;
-            DwollaContact* two = (DwollaContact*) obj2;
-            
-            return -1*[[one getName] compare:[two getName]];
-        }];     
-    }
-    
     return contacts;
 }
 

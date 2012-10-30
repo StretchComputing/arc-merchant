@@ -138,6 +138,16 @@
     }
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (buttonIndex == 1) {
+        [DwollaAPI clearAccessToken];
+        //[ArcClient trackEvent:@"DWOLLA_DEACTIVATED"];
+    }else{
+        self.dwollaAuthSwitch.on = YES;
+    }
+}
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     @try {

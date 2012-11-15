@@ -19,6 +19,19 @@
 {
      [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
     
+    // one reason this method is called is if a push notification is received while the app is in the background
+    // if custom data in push notification payload, then establish appropriate "context" in this app
+    if (launchOptions != nil)
+    {
+        NSDictionary* dictionary = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        if (dictionary != nil)
+        {
+            NSLog(@"Launched from push notification: %@", dictionary);
+            
+            // TODO  look for custom payload and establish context
+        }
+    }
+    
     
     // *** for rSkybox
     PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter]; NSError *error;
@@ -36,6 +49,16 @@
     
     // Override point for customization after application launch.
     return YES;
+}
+
+// this method is called if a push notification is received while the app is already running
+- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
+{
+    //  Push notification received while the app is running
+    
+    NSLog(@"Received notification: %@", userInfo);
+    
+    // TODO  look for custom payload and establish context
 }
 
 

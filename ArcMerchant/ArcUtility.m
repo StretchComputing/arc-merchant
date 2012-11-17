@@ -24,6 +24,7 @@
         AppDelegate *mainDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         
         [pairs setValue:mainDelegate.pushToken forKey:@"DeviceId"];
+        [pairs setValue:@"Development" forKey:@"PushType"];
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];

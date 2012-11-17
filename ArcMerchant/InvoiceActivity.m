@@ -308,7 +308,7 @@
         invoiceDateLabel.text = [dateFormat stringFromDate:myDate];
         tableNumber.text = [NSString stringWithFormat:@"Table #: %@", invoiceObject.tableNumber];
         
-        if ([invoiceObject.status isEqualToString:@"INVOICE_PAID"]) {
+        if ([invoiceObject.status isEqualToString:@"INVOICE_PAID"] || [invoiceObject.status isEqualToString:@"INVOICE_PAID_IN_FULL"]) {
             imageView.image = [UIImage imageNamed:@"paid.png"];
         }else if ([invoiceObject.status isEqualToString:@"INVOICE_PAID_PARTIAL"]){
             imageView.image = [UIImage imageNamed:@"partial.png"];

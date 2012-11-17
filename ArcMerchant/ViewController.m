@@ -13,6 +13,7 @@
 #import "DwollaAPI.h"
 #import "ArcUtility.h"
 #import "rSkybox.h"
+#import "ResetPasswordViewController.h"
 
 @interface ViewController ()
 
@@ -27,6 +28,9 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     @try {
+        
+        self.password.text = @"";
+        
         [self.myTableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO];
         self.errorLabel.text = @"";
         [self.username becomeFirstResponder];
@@ -37,6 +41,7 @@
             mainDelegate.logout = @"false";
             self.username.text = @"";
             self.password.text = @"";
+            [DwollaAPI clearAccessToken];
         }
         
                 
@@ -250,6 +255,7 @@
             [tmp updatePushToken];
             
             int resetPassword = [[[responseInfo valueForKey:@"Results"] valueForKey:@"ResetPassword"] intValue];
+            resetPassword = 1;
             
             if (resetPassword == 0) {
                 [[NSUserDefaults standardUserDefaults] setValue:self.username.text forKey:@"customerEmail"];
@@ -261,7 +267,9 @@
                 [self performSegueWithIdentifier:@"goHome" sender: self];
                 //Do the next thing (go home?)
             }else{
+                self.passCode =  [[responseInfo valueForKey:@"Results"] valueForKey:@"PassCode"];
                 [self performSegueWithIdentifier:@"resetPassword" sender:self];
+            
             }
          
         } else {
@@ -274,6 +282,25 @@
     }
     
 }
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    @try {
+        
+        if ([[segue identifier] isEqualToString:@"reviewCreditCardTransaction"]) {
+            
+            ResetPasswordViewController *next = [segue destinationViewController];
+            next.passcodeString = self.passCode;
+            next.emailAddress = self.username.text;
+        }
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DwollaPayment.prepareForSegue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+    
+}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     

@@ -10,6 +10,7 @@
 #import "rSkybox.h"
 #import "ArcClient.h"
 #import <QuartzCore/QuartzCore.h>
+#import "AppDelegate.h"
 
 @interface ResetPasswordViewController ()
 
@@ -17,6 +18,12 @@
 
 @implementation ResetPasswordViewController
 
+-(void)viewDidAppear:(BOOL)animated{
+    AppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    if ([mainDelegate.logout isEqualToString:@"true"]) {
+        [self.navigationController dismissModalViewControllerAnimated:NO];
+    }
+}
 -(void)viewWillAppear:(BOOL)animated{
     [self.passcodeText becomeFirstResponder];
 }
@@ -26,7 +33,7 @@
         gradient.frame = self.view.bounds;
         self.view.backgroundColor = [UIColor clearColor];
         //UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
-        double x = 1.8;
+        double x = 1.0;
         UIColor *myColor = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/255.0 blue:192.0*x/255.0 alpha:1.0];
         gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
         [self.view.layer insertSublayer:gradient atIndex:0];
@@ -61,6 +68,7 @@
             [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"resetPasswordSuccess"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             [self.navigationController dismissModalViewControllerAnimated:YES];
+            [self performSegueWithIdentifier:@"goHome" sender:self];
             [rSkybox addEventToSession:@"passwordResetComplete"];
             
         } else {
@@ -84,10 +92,10 @@
 - (IBAction)submitAction {
     @try {
         
-        if (([self.passcodeText.text length] > 0) && ([self.passwordText.text length] > 0) && ([self.confirmText.text length] > 0)) {
+        if (([self.passwordText.text length] > 0) && ([self.confirmText.text length] > 0)) {
             
             if ([self.passwordText.text isEqualToString:self.confirmText.text]) {
-                NSDictionary *params = @{@"eMail" : self.emailAddress, @"NewPassword" : self.confirmText.text, @"PassCode" : self.passcodeText.text};
+                NSDictionary *params = @{@"eMail" : self.emailAddress, @"NewPassword" : self.confirmText.text, @"PassCode" : self.passcodeString};
                 
                 [self.activity startAnimating];
                 ArcClient *tmp = [[ArcClient alloc] init];
@@ -116,5 +124,7 @@
 
 
 - (IBAction)cancelAction:(id)sender {
+    
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 @end

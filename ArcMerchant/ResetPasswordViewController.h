@@ -13,6 +13,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *passcodeText;
 @property (weak, nonatomic) IBOutlet UITextField *passwordText;
 @property (weak, nonatomic) IBOutlet UITextField *confirmText;
+@property (weak, nonatomic) NSString *passcodeString;
+@property (weak, nonatomic) NSString *emailString;
+
 - (IBAction)submitAction;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
 - (IBAction)cancelAction:(id)sender;

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
@@ -21,7 +21,7 @@
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
-
+@property (nonatomic, strong) NSString *passCode;
 @property BOOL autoSignIn;
 -(IBAction)signIn;
 

@@ -67,9 +67,9 @@
             
             [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"resetPasswordSuccess"];
             [[NSUserDefaults standardUserDefaults] synchronize];
-            [self.navigationController dismissModalViewControllerAnimated:YES];
-            [self performSegueWithIdentifier:@"goHome" sender:self];
             [rSkybox addEventToSession:@"passwordResetComplete"];
+
+            [self performSegueWithIdentifier:@"goHome" sender:self];
             
         } else {
             

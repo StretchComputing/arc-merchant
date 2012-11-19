@@ -40,6 +40,7 @@ typedef enum {
 }
 @property (nonatomic, strong) NSMutableData *serverData;
 @property int httpStatusCode;
+@property (nonatomic, strong) NSURLConnection *urlConnection;
 
 -(void)createCustomer:(NSDictionary *)pairs;
 -(NSDictionary *) createCustomerResponse:(NSDictionary *)response;

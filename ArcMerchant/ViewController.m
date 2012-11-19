@@ -255,7 +255,6 @@
             [tmp updatePushToken];
             
             int resetPassword = [[[responseInfo valueForKey:@"Results"] valueForKey:@"ResetPassword"] intValue];
-            resetPassword = 1;
             
             if (resetPassword == 0) {
                 [[NSUserDefaults standardUserDefaults] setValue:self.username.text forKey:@"customerEmail"];
@@ -287,9 +286,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     @try {
         
-        if ([[segue identifier] isEqualToString:@"reviewCreditCardTransaction"]) {
+        if ([[segue identifier] isEqualToString:@"resetPassword"]) {
             
-            ResetPasswordViewController *next = [segue destinationViewController];
+            UINavigationController *nav = [segue destinationViewController];
+            ResetPasswordViewController *next = [[nav viewControllers] objectAtIndex:0];
             next.passcodeString = self.passCode;
             next.emailAddress = self.username.text;
         }

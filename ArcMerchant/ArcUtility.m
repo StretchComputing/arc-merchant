@@ -32,6 +32,9 @@
         [pairs setValue:@"Production" forKey:@"PushType"];
 #endif
         
+        NSNumber *noMail = [NSNumber numberWithBool:YES];
+        [pairs setValue:noMail forKey:@"NoMail"];
+        
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         

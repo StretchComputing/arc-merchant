@@ -173,8 +173,9 @@
     AppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
     if ([mainDelegate.logout isEqualToString:@"true"]) {
         
-        [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerId"];
-        [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerToken"];
+        [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"merchantId"];
+        [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"managerId"];
+        [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"managerToken"];
         [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"admin"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         

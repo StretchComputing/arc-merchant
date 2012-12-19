@@ -12,7 +12,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ArcClient.h"
 #import "AppDelegate.h"
-#import "ArcUtility.h"
 #import "rSkybox.h"
 
 @interface InitialController ()
@@ -28,11 +27,11 @@
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         
-        NSString *customerId = [prefs stringForKey:@"customerId"];
-        NSString *customerToken = [prefs stringForKey:@"customerToken"];
+        NSString *managerId = [prefs stringForKey:@"managerId"];
+        NSString *managerToken = [prefs stringForKey:@"managerToken"];
         
         
-        if (![customerId isEqualToString:@""] && (customerId != nil) && ![customerToken isEqualToString:@""] && (customerToken != nil)) {
+        if (![managerId isEqualToString:@""] && (managerId != nil) && ![managerToken isEqualToString:@""] && (managerToken != nil)) {
             //[self performSegueWithIdentifier: @"signInNoAnimation" sender: self];
             //self.autoSignIn = YES;
             
@@ -45,7 +44,7 @@
             [self presentModalViewController:home animated:NO];
             [rSkybox addEventToSession:@"homePageDidAppear"];
             
-            ArcUtility *tmp = [[ArcUtility alloc] init];
+            ArcClient *tmp = [[ArcClient alloc] init];
             [tmp updatePushToken];
             
         }else{

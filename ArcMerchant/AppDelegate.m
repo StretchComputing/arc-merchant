@@ -11,7 +11,6 @@
 #import <CrashReporter/CrashReporter.h>
 #import "UIDevice-Hardware.h"
 #import "rSkybox.h"
-#import "ArcUtility.h"
 
 
 @implementation AppDelegate
@@ -77,16 +76,16 @@
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    NSString *customerId = [prefs stringForKey:@"customerId"];
-    NSString *customerToken = [prefs stringForKey:@"customerToken"];
+    NSString *managerId = [prefs stringForKey:@"managerId"];
+    NSString *managerToken = [prefs stringForKey:@"managerToken"];
     
     
     
     
-    if (![customerId isEqualToString:@""] && (customerId != nil) && ![customerToken isEqualToString:@""] && (customerToken != nil)) {
+    if (![managerId isEqualToString:@""] && (managerId != nil) && ![managerToken isEqualToString:@""] && (managerToken != nil)) {
         //[self performSegueWithIdentifier: @"signInNoAnimation" sender: self];
         //self.autoSignIn = YES;
-        ArcUtility *tmp = [[ArcUtility alloc] init];
+        ArcClient *tmp = [[ArcClient alloc] init];
         [tmp updatePushToken];
     }
  

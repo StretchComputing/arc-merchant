@@ -12,6 +12,7 @@
 #import "rSkybox.h"
 #import <QuartzCore/QuartzCore.h>
 #import "AppDelegate.h"
+#import "ArcClient.h"
 
 @interface Settings ()
 @end
@@ -20,6 +21,13 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     @try {
+        
+        ArcClient *tmp = [[ArcClient alloc] init];
+        if (![tmp admin]) {
+            self.changeServerButton.hidden = YES;
+        }else{
+            self.changeServerButton.hidden = NO;
+        }
         
         NSString *dwollaAuthToken = @"";
         @try {
@@ -117,6 +125,9 @@
     }
 }
 
+- (IBAction)changeServerAction {
+}
+
 
 - (IBAction)dwollaAuthSwitchSelected {
     @try {
@@ -165,6 +176,7 @@
 
 
 - (void)viewDidUnload {
+    [self setChangeServerButton:nil];
     @try {
         
         [self setDwollaAuthSwitch:nil];

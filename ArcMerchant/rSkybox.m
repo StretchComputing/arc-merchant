@@ -108,13 +108,14 @@ static NSString *logNameBeingTimed;
 +(void)sendClientLog:(NSString *)logName logMessage:(NSString *)logMessage logLevel:(NSString *)logLevel exception:(NSException *)exception{
     
     @try {
+        
+        logName = [@"Merchant." stringByAppendingString:logName];
+
 #if DEBUG==1
         logName = [@"MerchantDev." stringByAppendingString:logName];
 #endif
         
-#if RELEASE==1
-        logName = [@"Merchant." stringByAppendingString:logName];
-#endif
+
         
         
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];

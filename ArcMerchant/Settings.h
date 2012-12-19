@@ -10,7 +10,9 @@
 
 @interface Settings : UITableViewController
 - (IBAction)cancelAction:(id)sender;
+- (IBAction)changeServerAction;
 
+@property (weak, nonatomic) IBOutlet UIButton *changeServerButton;
 @property (weak, nonatomic) IBOutlet UISwitch *dwollaAuthSwitch;
 - (IBAction)dwollaAuthSwitchSelected;
 @property BOOL fromDwolla;

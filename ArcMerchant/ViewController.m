@@ -11,7 +11,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ArcClient.h"
 #import "DwollaAPI.h"
-#import "ArcUtility.h"
 #import "rSkybox.h"
 #import "ResetPasswordViewController.h"
 
@@ -251,7 +250,7 @@
         if ([status isEqualToString:@"success"]) {
             //success
             
-            ArcUtility *tmp = [[ArcUtility alloc] init];
+            ArcClient *tmp = [[ArcClient alloc] init];
             [tmp updatePushToken];
             
             int resetPassword = [[[responseInfo valueForKey:@"Results"] valueForKey:@"ResetPassword"] intValue];

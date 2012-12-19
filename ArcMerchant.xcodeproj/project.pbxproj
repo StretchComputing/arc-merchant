@@ -67,8 +67,9 @@
 		908A6E241628994400041727 /* paid.png in Resources */ = {isa = PBXBuildFile; fileRef = 908A6E211628994400041727 /* paid.png */; };
 		908A6E251628994400041727 /* partial.png in Resources */ = {isa = PBXBuildFile; fileRef = 908A6E221628994400041727 /* partial.png */; };
 		9090205116266D44001B8428 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9090205016266D44001B8428 /* Default-568h@2x.png */; };
-		9094CAA7163E07CF0036D8BA /* ArcUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094CAA6163E07CF0036D8BA /* ArcUtility.m */; };
 		90A5AAF11638DFED009C278A /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A5AAF01638DFEC009C278A /* ResetPasswordViewController.m */; };
+		90E41E8C16815AD500257343 /* EditServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E41E8B16815AD500257343 /* EditServerController.m */; };
+		90E41E9616815C6400257343 /* blueCheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E41E9516815C6400257343 /* blueCheck.png */; };
 		9FEB3258163E1895009FE7D9 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEB3257163E1895009FE7D9 /* UIDevice-Hardware.m */; };
 		9FEB325B163E1E73009FE7D9 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FEB325A163E1E73009FE7D9 /* CrashReporter.framework */; };
 		9FEB325D163E1F24009FE7D9 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FEB325C163E1F24009FE7D9 /* libCrashReporter-iphoneos.a */; };
@@ -184,10 +185,11 @@
 		908A6E211628994400041727 /* paid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paid.png; sourceTree = "<group>"; };
 		908A6E221628994400041727 /* partial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = partial.png; sourceTree = "<group>"; };
 		9090205016266D44001B8428 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		9094CAA5163E07CF0036D8BA /* ArcUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArcUtility.h; sourceTree = "<group>"; };
-		9094CAA6163E07CF0036D8BA /* ArcUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArcUtility.m; sourceTree = "<group>"; };
 		90A5AAEF1638DFEC009C278A /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		90A5AAF01638DFEC009C278A /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
+		90E41E8A16815AD500257343 /* EditServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditServerController.h; sourceTree = "<group>"; };
+		90E41E8B16815AD500257343 /* EditServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditServerController.m; sourceTree = "<group>"; };
+		90E41E9516815C6400257343 /* blueCheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueCheck.png; sourceTree = "<group>"; };
 		9FEB3256163E1895009FE7D9 /* UIDevice-Hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice-Hardware.h"; sourceTree = "<group>"; };
 		9FEB3257163E1895009FE7D9 /* UIDevice-Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice-Hardware.m"; sourceTree = "<group>"; };
 		9FEB325A163E1E73009FE7D9 /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CrashReporter.framework; sourceTree = "<group>"; };
@@ -247,9 +249,12 @@
 			children = (
 				9FEB3255163E1895009FE7D9 /* rSkyboxHelpers */,
 				906C811D15FD6C990012AC9D /* AppDelegate.h */,
+				90E41E9516815C6400257343 /* blueCheck.png */,
 				906C811E15FD6C990012AC9D /* AppDelegate.m */,
 				906C812015FD6C990012AC9D /* MainStoryboard_iPhone.storyboard */,
 				906C812615FD6C990012AC9D /* ViewController.h */,
+				90E41E8A16815AD500257343 /* EditServerController.h */,
+				90E41E8B16815AD500257343 /* EditServerController.m */,
 				906C812715FD6C990012AC9D /* ViewController.m */,
 				9014224E161759680051D913 /* InvoiceActivity.h */,
 				902E01C716226B120013CB73 /* Default@2x.png */,
@@ -281,8 +286,6 @@
 				9014225A161782DA0051D913 /* RegisterDwollaView.m */,
 				906C813415FD6E270012AC9D /* ArcClient.h */,
 				906C813515FD6E270012AC9D /* ArcClient.m */,
-				9094CAA5163E07CF0036D8BA /* ArcUtility.h */,
-				9094CAA6163E07CF0036D8BA /* ArcUtility.m */,
 				906C816E15FD6FE60012AC9D /* rSkybox.h */,
 				906C816F15FD6FE60012AC9D /* rSkybox.m */,
 				906C817115FD70090012AC9D /* UIDevice-Hardware.h */,
@@ -444,6 +447,7 @@
 				908A6E231628994400041727 /* notpaid.png in Resources */,
 				908A6E241628994400041727 /* paid.png in Resources */,
 				908A6E251628994400041727 /* partial.png in Resources */,
+				90E41E9616815C6400257343 /* blueCheck.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,8 +504,8 @@
 				902E01C1162260D70013CB73 /* DwollaPayment.m in Sources */,
 				902E01C616226B090013CB73 /* InitialController.m in Sources */,
 				90A5AAF11638DFED009C278A /* ResetPasswordViewController.m in Sources */,
-				9094CAA7163E07CF0036D8BA /* ArcUtility.m in Sources */,
 				9FEB3258163E1895009FE7D9 /* UIDevice-Hardware.m in Sources */,
+				90E41E8C16815AD500257343 /* EditServerController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

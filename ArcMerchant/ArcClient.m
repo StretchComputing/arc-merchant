@@ -411,7 +411,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         
         
-        NSString *createReviewUrl = [NSString stringWithFormat:@"%@merchants/updatemanagers/current/", arcUrl, nil];
+        NSString *createReviewUrl = [NSString stringWithFormat:@"%@merchants/managers/update/current/", arcUrl, nil];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createReviewUrl]];
         [request setHTTPMethod: @"POST"];
         
@@ -444,7 +444,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     @try {
         
         NSString *logName = [NSString stringWithFormat:@"api.%@.threshold", [self apiToString]];
-        [rSkybox endThreshold:logName logMessage:@"fake logMessage" maxValue:5000.00];
+        [rSkybox endThreshold:logName logMessage:@"fake logMessage" maxValue:15000.00];
         
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];

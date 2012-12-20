@@ -111,7 +111,7 @@
             
         } else if([status isEqualToString:@"error"]){
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
-            if(errorCode == 101) {
+            if(errorCode == 101 || errorCode == 100) {
                 errorMsg = @"No open Invoices Found.";
             } else {
                 errorMsg = ARC_ERROR_MSG;

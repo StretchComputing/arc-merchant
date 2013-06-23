@@ -31,8 +31,6 @@
 		902E01C1162260D70013CB73 /* DwollaPayment.m in Sources */ = {isa = PBXBuildFile; fileRef = 902E01C0162260D70013CB73 /* DwollaPayment.m */; };
 		902E01C3162268F90013CB73 /* rowButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 902E01C2162268F90013CB73 /* rowButton.png */; };
 		902E01C616226B090013CB73 /* InitialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 902E01C516226B090013CB73 /* InitialController.m */; };
-		902E01C916226B130013CB73 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 902E01C716226B120013CB73 /* Default@2x.png */; };
-		902E01CA16226B130013CB73 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 902E01C816226B130013CB73 /* Default.png */; };
 		906C810F15FD6C990012AC9D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906C810E15FD6C990012AC9D /* UIKit.framework */; };
 		906C811115FD6C990012AC9D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906C811015FD6C990012AC9D /* Foundation.framework */; };
 		906C811315FD6C990012AC9D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906C811215FD6C990012AC9D /* CoreGraphics.framework */; };
@@ -66,8 +64,16 @@
 		908A6E231628994400041727 /* notpaid.png in Resources */ = {isa = PBXBuildFile; fileRef = 908A6E201628994400041727 /* notpaid.png */; };
 		908A6E241628994400041727 /* paid.png in Resources */ = {isa = PBXBuildFile; fileRef = 908A6E211628994400041727 /* paid.png */; };
 		908A6E251628994400041727 /* partial.png in Resources */ = {isa = PBXBuildFile; fileRef = 908A6E221628994400041727 /* partial.png */; };
-		9090205116266D44001B8428 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9090205016266D44001B8428 /* Default-568h@2x.png */; };
+		908D458F1695032700C30E0A /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 908D458E1695032600C30E0A /* Icon@2x.png */; };
+		908D45911695032C00C30E0A /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 908D45901695032C00C30E0A /* Icon.png */; };
 		90A5AAF11638DFED009C278A /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A5AAF01638DFEC009C278A /* ResetPasswordViewController.m */; };
+		90CBF9D117762DF500A303DC /* dutchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CBF9D017762DF500A303DC /* dutchIcon.png */; };
+		90CBF9D41776311000A303DC /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CBF9D31776311000A303DC /* LoadingViewController.m */; };
+		90CBF9D71776396200A303DC /* NVUIGradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CBF9D61776396200A303DC /* NVUIGradientButton.m */; };
+		90CBF9D9177639D800A303DC /* backarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CBF9D8177639D800A303DC /* backarrow.png */; };
+		90CBF9DD17772FD200A303DC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CBF9DA17772FD200A303DC /* Default-568h@2x.png */; };
+		90CBF9DE17772FD200A303DC /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CBF9DB17772FD200A303DC /* Default.png */; };
+		90CBF9DF17772FD200A303DC /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CBF9DC17772FD200A303DC /* Default@2x.png */; };
 		90E41E8C16815AD500257343 /* EditServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E41E8B16815AD500257343 /* EditServerController.m */; };
 		90E41E9616815C6400257343 /* blueCheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E41E9516815C6400257343 /* blueCheck.png */; };
 		9FEB3258163E1895009FE7D9 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEB3257163E1895009FE7D9 /* UIDevice-Hardware.m */; };
@@ -123,8 +129,6 @@
 		902E01C2162268F90013CB73 /* rowButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rowButton.png; sourceTree = "<group>"; };
 		902E01C416226B080013CB73 /* InitialController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialController.h; sourceTree = "<group>"; };
 		902E01C516226B090013CB73 /* InitialController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialController.m; sourceTree = "<group>"; };
-		902E01C716226B120013CB73 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		902E01C816226B130013CB73 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		906C810A15FD6C990012AC9D /* ArcMerchant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArcMerchant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		906C810E15FD6C990012AC9D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		906C811015FD6C990012AC9D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -184,9 +188,19 @@
 		908A6E201628994400041727 /* notpaid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notpaid.png; sourceTree = "<group>"; };
 		908A6E211628994400041727 /* paid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paid.png; sourceTree = "<group>"; };
 		908A6E221628994400041727 /* partial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = partial.png; sourceTree = "<group>"; };
-		9090205016266D44001B8428 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		908D458E1695032600C30E0A /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		908D45901695032C00C30E0A /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		90A5AAEF1638DFEC009C278A /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		90A5AAF01638DFEC009C278A /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
+		90CBF9D017762DF500A303DC /* dutchIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dutchIcon.png; sourceTree = "<group>"; };
+		90CBF9D21776311000A303DC /* LoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingViewController.h; sourceTree = "<group>"; };
+		90CBF9D31776311000A303DC /* LoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingViewController.m; sourceTree = "<group>"; };
+		90CBF9D51776396200A303DC /* NVUIGradientButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVUIGradientButton.h; sourceTree = "<group>"; };
+		90CBF9D61776396200A303DC /* NVUIGradientButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NVUIGradientButton.m; sourceTree = "<group>"; };
+		90CBF9D8177639D800A303DC /* backarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backarrow.png; sourceTree = "<group>"; };
+		90CBF9DA17772FD200A303DC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		90CBF9DB17772FD200A303DC /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		90CBF9DC17772FD200A303DC /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		90E41E8A16815AD500257343 /* EditServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditServerController.h; sourceTree = "<group>"; };
 		90E41E8B16815AD500257343 /* EditServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditServerController.m; sourceTree = "<group>"; };
 		90E41E9516815C6400257343 /* blueCheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueCheck.png; sourceTree = "<group>"; };
@@ -216,7 +230,8 @@
 		906C80FF15FD6C990012AC9D = {
 			isa = PBXGroup;
 			children = (
-				9090205016266D44001B8428 /* Default-568h@2x.png */,
+				908D45901695032C00C30E0A /* Icon.png */,
+				908D458E1695032600C30E0A /* Icon@2x.png */,
 				9FEB325C163E1F24009FE7D9 /* libCrashReporter-iphoneos.a */,
 				9FEB325A163E1E73009FE7D9 /* CrashReporter.framework */,
 				906C813215FD6DF20012AC9D /* QuartzCore.framework */,
@@ -250,6 +265,9 @@
 				9FEB3255163E1895009FE7D9 /* rSkyboxHelpers */,
 				906C811D15FD6C990012AC9D /* AppDelegate.h */,
 				90E41E9516815C6400257343 /* blueCheck.png */,
+				90CBF9DA17772FD200A303DC /* Default-568h@2x.png */,
+				90CBF9DB17772FD200A303DC /* Default.png */,
+				90CBF9DC17772FD200A303DC /* Default@2x.png */,
 				906C811E15FD6C990012AC9D /* AppDelegate.m */,
 				906C812015FD6C990012AC9D /* MainStoryboard_iPhone.storyboard */,
 				906C812615FD6C990012AC9D /* ViewController.h */,
@@ -257,8 +275,6 @@
 				90E41E8B16815AD500257343 /* EditServerController.m */,
 				906C812715FD6C990012AC9D /* ViewController.m */,
 				9014224E161759680051D913 /* InvoiceActivity.h */,
-				902E01C716226B120013CB73 /* Default@2x.png */,
-				902E01C816226B130013CB73 /* Default.png */,
 				90A5AAEF1638DFEC009C278A /* ResetPasswordViewController.h */,
 				90A5AAF01638DFEC009C278A /* ResetPasswordViewController.m */,
 				9014224F161759680051D913 /* InvoiceActivity.m */,
@@ -271,11 +287,16 @@
 				9012BA781620901E00B1CE62 /* Invoice.h */,
 				9012BA791620901E00B1CE62 /* Invoice.m */,
 				902E01B1162242170013CB73 /* ItemObject.h */,
+				90CBF9D8177639D800A303DC /* backarrow.png */,
 				902E01B2162242170013CB73 /* ItemObject.m */,
 				902E01B5162242220013CB73 /* PaymentObject.h */,
 				902E01B6162242220013CB73 /* PaymentObject.m */,
 				9014224A161750FD0051D913 /* Settings.h */,
 				9014224B161750FD0051D913 /* Settings.m */,
+				90CBF9D51776396200A303DC /* NVUIGradientButton.h */,
+				90CBF9D61776396200A303DC /* NVUIGradientButton.m */,
+				90CBF9D21776311000A303DC /* LoadingViewController.h */,
+				90CBF9D31776311000A303DC /* LoadingViewController.m */,
 				902E01BF162260D70013CB73 /* DwollaPayment.h */,
 				902E01C0162260D70013CB73 /* DwollaPayment.m */,
 				9014227E161785040051D913 /* NSData+Base64.h */,
@@ -294,6 +315,7 @@
 				906C817515FD70170012AC9D /* Encoder.h */,
 				9014225C161784240051D913 /* DwollaOAuth2Client.h */,
 				9014225D161784240051D913 /* DwollaOAuth2Client.m */,
+				90CBF9D017762DF500A303DC /* dutchIcon.png */,
 				9014225E161784240051D913 /* DwollaAPI.h */,
 				9014225F161784240051D913 /* DwollaAPI.m */,
 				90142260161784240051D913 /* IDwollaMessages.h */,
@@ -441,13 +463,17 @@
 				906C817815FD709E0012AC9D /* arcLogo.png in Resources */,
 				9012BA7D1620929B00B1CE62 /* greyBack.png in Resources */,
 				902E01C3162268F90013CB73 /* rowButton.png in Resources */,
-				902E01C916226B130013CB73 /* Default@2x.png in Resources */,
-				902E01CA16226B130013CB73 /* Default.png in Resources */,
-				9090205116266D44001B8428 /* Default-568h@2x.png in Resources */,
 				908A6E231628994400041727 /* notpaid.png in Resources */,
 				908A6E241628994400041727 /* paid.png in Resources */,
 				908A6E251628994400041727 /* partial.png in Resources */,
 				90E41E9616815C6400257343 /* blueCheck.png in Resources */,
+				908D458F1695032700C30E0A /* Icon@2x.png in Resources */,
+				908D45911695032C00C30E0A /* Icon.png in Resources */,
+				90CBF9D117762DF500A303DC /* dutchIcon.png in Resources */,
+				90CBF9D9177639D800A303DC /* backarrow.png in Resources */,
+				90CBF9DD17772FD200A303DC /* Default-568h@2x.png in Resources */,
+				90CBF9DE17772FD200A303DC /* Default.png in Resources */,
+				90CBF9DF17772FD200A303DC /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,6 +532,8 @@
 				90A5AAF11638DFED009C278A /* ResetPasswordViewController.m in Sources */,
 				9FEB3258163E1895009FE7D9 /* UIDevice-Hardware.m in Sources */,
 				90E41E8C16815AD500257343 /* EditServerController.m in Sources */,
+				90CBF9D41776311000A303DC /* LoadingViewController.m in Sources */,
+				90CBF9D71776396200A303DC /* NVUIGradientButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

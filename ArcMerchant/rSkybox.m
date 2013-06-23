@@ -247,7 +247,15 @@ static NSString *logNameBeingTimed;
         
         [tempDictionary setObject:summary forKey:@"summary"];
         
-        [tempDictionary setObject:[rSkybox getUserId] forKey:@"userId"];
+        [tempDictionary setObject:@"Arc Merchant Crash" forKey:@"eventName"];
+
+        
+        if ([rSkybox getUserId]) {
+            [tempDictionary setObject:[rSkybox getUserId] forKey:@"userId"];
+        }else{
+            [tempDictionary setObject:@"notLoggedIn" forKey:@"userId"];
+
+        }
         [tempDictionary setObject:versionNumber forKey:@"version"];
         
         
@@ -311,8 +319,7 @@ static NSString *logNameBeingTimed;
         
         // parse the returned JSON object
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
-        
-        
+                
         SBJsonParser *jsonParser = [SBJsonParser new];
         NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
         
@@ -324,7 +331,7 @@ static NSString *logNameBeingTimed;
     
     @catch (NSException *e) {
         
-        
+        NSLog(@"Exceptoin: %@", e);
     }
 }
 

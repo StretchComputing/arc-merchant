@@ -24,7 +24,10 @@
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property BOOL isIos6;
+@property (strong, nonatomic) IBOutlet UIView *bottomLineView;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *segControl;
 
+@property (strong, nonatomic) IBOutlet UIView *topLineView;
 - (IBAction)segmentValueChanged;
 @property (nonatomic, strong) IBOutlet UITableView *myTableView;
 @end

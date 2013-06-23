@@ -33,7 +33,8 @@ typedef enum {
     SendPushToken=9,
     ResetPassword = 10,
     UpdatePushToken = 11,
-    SetAdminServer = 12
+    SetAdminServer = 12,
+    GetListOfServers = 13
 
 } APIS;
 
@@ -79,7 +80,7 @@ typedef enum {
 -(NSString *)getCurrentUrl;
 -(NSString *) authHeader;
 -(void)updatePushToken;
-
+-(void)getListOfServers;
 -(BOOL) admin;
 @end
 

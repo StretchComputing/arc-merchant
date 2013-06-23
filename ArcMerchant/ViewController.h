@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "NVUIGradientButton.h"
 @interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 
@@ -18,12 +18,15 @@
 @property (nonatomic, strong) IBOutlet UITableView *myTableView;
 
 @property (nonatomic, strong) NSMutableData *serverData;
+@property (strong, nonatomic) IBOutlet UIView *backView;
+@property (strong, nonatomic) IBOutlet UIView *topLineView;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 @property (nonatomic, strong) NSString *passCode;
 @property BOOL autoSignIn;
 -(IBAction)signIn;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *signInButton;
 
 
 @end

@@ -11,9 +11,11 @@
 #import "AppDelegate.h"
 #import "rSkybox.h"
 
-//NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
-NSString *_arcUrl = @"http://arc.dagher.mobi/rest/v1/";           // CLOUD
+NSString *_arcUrl = @"http://dev.dagher.mobi/rest/v1/";       //DEV - Cloud
+//NSString *_arcUrl = @"http://arc.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
+//NSString *_arcUrl = @"http://dtnetwork.asuscomm.com:8700/arc-dev/rest/v1/";
+
 
 NSString *_arcServersUrl = @"http://arc-servers.dagher.net.co/rest/v1/"; // Servers API: CLOUD II
 //NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD
@@ -45,7 +47,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-           _arcUrl = [NSString stringWithFormat:@"http://%@/rest/v1/", [prefs valueForKey:@"arcUrl"]];
+          // _arcUrl = [NSString stringWithFormat:@"http://%@/rest/v1/", [prefs valueForKey:@"arcUrl"]];
             NSLog(@"ArcURL: %@", _arcUrl);
 
         }
@@ -77,7 +79,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetServer"];
-        self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+       // self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.getServer" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -135,6 +137,11 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setHTTPMethod: @"SEARCH"];
         [request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        
+        
+        NSLog(@"RequestSTring: %@", requestString);
+        
+        NSLog(@"URL: %@", getCustomerTokenUrl);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetCusotmerToken"];
@@ -207,7 +214,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         
-        NSString *getInvoiceUrl = [NSString stringWithFormat:@"%@invoices/list", _arcUrl];
+        NSString *getInvoiceUrl = [NSString stringWithFormat:@"%@invoices/criteria", _arcUrl];
         NSLog(@"getInvoiceUrl: %@", getInvoiceUrl);
         
         
@@ -216,6 +223,10 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         [request setHTTPBody: requestData];
+        
+        
+      
+        NSLog(@"RequestString: %@", requestString);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetInvoice"];
@@ -335,6 +346,32 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 }
 
 
+-(void)getListOfServers{
+    @try {
+        [rSkybox addEventToSession:@"getListOfServers"];
+        api = GetListOfServers;
+        
+        
+        NSString *pingUrl = @"http://arc-servers.dagher.net.co/rest/v1/servers/list";
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:pingUrl]];
+        
+        [request setHTTPMethod: @"GET"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        
+        
+        self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"getListOfServers"];
+        self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.sendServerPings" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
+
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
     @try {
         
@@ -423,7 +460,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"updatePushToken"];
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+        //NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.updatePushToken" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -519,6 +556,12 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             }
             notificationType = @"setServerNotification";
             
+        }else if (api == GetListOfServers){
+            if (response && httpSuccess) {
+                notificationType = @"getServerListNotification";
+                
+                responseInfo = [self getServerListResponse:response];
+            }
         }
         
         if(!httpSuccess) {
@@ -535,6 +578,32 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.connectionDidFinishLoading" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
+
+-(NSDictionary *) getServerListResponse:(NSDictionary *)response {
+    @try {
+        
+        NSLog(@"Response: %@", response);
+        
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        if (success){
+            responseInfo = @{@"status": @"success", @"apiResponse": response};
+        } else {
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+        }
+        return responseInfo;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getMerchantListResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+        
     }
 }
 
@@ -629,6 +698,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             notificationType = @"trackEventNotification";   // posting notification for now, but nobody is listenting
         }else if (api == SetAdminServer){
             notificationType = @"setServerNotification";
+        }else if (api == GetListOfServers){
+            notificationType = @"getServerListNotification";
         }
         
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
@@ -919,6 +990,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     @try {
         
         NSString *managerToken = [self managerToken];
+        
+        NSLog(@"Token: %@", managerToken);
+        
         if (managerToken) {
             NSString *stringToEncode = [@"merchant:" stringByAppendingString:managerToken];
             NSString *authentication = [self encodeBase64:stringToEncode];

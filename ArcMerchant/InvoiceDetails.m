@@ -12,6 +12,7 @@
 #import "DwollaPayment.h"
 #import "DwollaAPI.h"
 #import "rSkybox.h"
+#import "AppDelegate.h"
 
 @interface InvoiceDetails ()
 
@@ -24,28 +25,46 @@
 {
     @try {
         
+        self.closeInvoicePaymentsView.text = @"Close";
+        self.closeInvoiceItemsButton.text = @"Close";
         self.title = @"Details";
         [rSkybox addEventToSession:@"viewInvoiceDetails"];
         
+        self.outlineVerticalView.backgroundColor = dutchDarkBlueColor;
+        self.outlineView.backgroundColor = dutchDarkBlueColor;
+        
         [super viewDidLoad];
+        self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+        self.topLineView.layer.shadowRadius = 2;
+        self.topLineView.layer.shadowOpacity = 0.4;
+  
+        self.topBackView.backgroundColor = dutchTopNavColor;
+        self.topLineView.backgroundColor = dutchTopLineColor;
+        self.midLineView.backgroundColor = dutchTopLineColor;
+        self.bottomLineView.backgroundColor = dutchTopLineColor;
+
+        self.refundButton.text = @"Refund Invoice";
+        self.itemsButton.text = @"View Items";
+        self.paymentsButton.text = @"View Payments";
         
-        CAGradientLayer *gradient = [CAGradientLayer layer];
-        gradient.frame = self.view.bounds;
-        UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
-        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
-        [self.view.layer insertSublayer:gradient atIndex:0];
-        
-        self.invoiceItemsView.layer.masksToBounds = YES;
-        self.invoiceItemsView.layer.cornerRadius = 4.0;
-        self.invoiceItemsView.layer.borderColor = [[UIColor blackColor] CGColor];
-        self.invoiceItemsView.layer.borderWidth = 2.0;
+        self.alphaView.hidden = YES;
+       // self.invoiceItemsView.layer.masksToBounds = YES;
+        self.invoiceItemsView.layer.cornerRadius = 3.0;
+        self.invoiceItemsView.layer.borderColor = [dutchTopLineColor CGColor];
+        self.invoiceItemsView.layer.borderWidth = 1.0;
         self.invoiceItemsView.hidden = YES;
+        self.invoiceItemsView.layer.shadowOffset = CGSizeMake(0, 0);
+        self.invoiceItemsView.layer.shadowRadius = 10;
+        self.invoiceItemsView.layer.shadowOpacity = 0.4;
         
-        self.invoicePaymentsView.layer.masksToBounds = YES;
-        self.invoicePaymentsView.layer.cornerRadius = 4.0;
-        self.invoicePaymentsView.layer.borderColor = [[UIColor blackColor] CGColor];
-        self.invoicePaymentsView.layer.borderWidth = 2.0;
+        //self.invoicePaymentsView.layer.masksToBounds = YES;
+        self.invoicePaymentsView.layer.cornerRadius = 3.0;
+        self.invoicePaymentsView.layer.borderColor = [dutchTopLineColor CGColor];
+        self.invoicePaymentsView.layer.borderWidth = 1.0;
         self.invoicePaymentsView.hidden = YES;
+        self.invoicePaymentsView.layer.shadowOffset = CGSizeMake(0, 0);
+        self.invoicePaymentsView.layer.shadowRadius = 10;
+        self.invoicePaymentsView.layer.shadowOpacity = 0.4;
         
         self.refundAmountView.layer.masksToBounds = YES;
         self.refundAmountView.layer.cornerRadius = 4.0;
@@ -76,6 +95,7 @@
         [rSkybox sendClientLog:@"InvoiceDetails.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
+
 
 
 -(void)setLabels{
@@ -180,7 +200,9 @@
                 
                 amountLabel.text = [[item valueForKey:@"Amount"] stringValue];
                 descriptionLabel.text = [item valueForKey:@"Description"];
-                priceLabel.text = [NSString stringWithFormat:@"$%@", [[item valueForKey:@"Value"] stringValue]];
+                
+                double priceDouble = [[item valueForKey:@"Value"] doubleValue];
+                priceLabel.text = [NSString stringWithFormat:@"%.2f", priceDouble ];
                 
                 
             }
@@ -295,6 +317,7 @@
         }else{
             
             self.invoiceItemsView.hidden = NO;
+            self.alphaView.hidden = NO;
             [self.invoiceItemsTable reloadData];
         }
         
@@ -312,6 +335,7 @@
             [alert show];
         }else{
             self.invoicePaymentsView.hidden= NO;
+            self.alphaView.hidden = NO;
             [self.invoicePaymentsTable reloadData];
         }
         
@@ -324,10 +348,12 @@
 
 - (IBAction)closeInvoicePaymentsAction {
     self.invoicePaymentsView.hidden = YES;
+    self.alphaView.hidden = YES;
 }
 
 - (IBAction)closeInvoiceItemsAction {
     self.invoiceItemsView.hidden = YES;
+    self.alphaView.hidden = YES;
 }
 
 
@@ -430,5 +456,20 @@
         [rSkybox sendClientLog:@"InvoiceDetails.refundMainAction" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
+}
+- (IBAction)goBack {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (void)viewDidUnload {
+    [self setTopBackView:nil];
+    [self setTopLineView:nil];
+    [self setBottomLineView:nil];
+    [self setMidLineView:nil];
+    [self setRefundButton:nil];
+    [self setItemsButton:nil];
+    [self setPaymentsButton:nil];
+    [self setOutlineView:nil];
+    [self setOutlineVerticalView:nil];
+    [super viewDidUnload];
 }
 @end

@@ -26,6 +26,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     
+    self.navigationController.navigationBarHidden = YES;
     self.refreshTimer = [NSTimer timerWithTimeInterval:10 target:self selector:@selector(refresh) userInfo:nil repeats:YES];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invoiceComplete:) name:@"invoiceNotification" object:nil];
@@ -44,6 +45,8 @@
 }
 
 -(void)invoiceComplete:(NSNotification *)notification{
+    
+    
     
     [self.activity stopAnimating];
     [self.refreshControl endRefreshing];
@@ -65,7 +68,11 @@
             self.allInvoicesArray = [NSMutableArray array];
             self.filterInvoicesArray = [NSMutableArray array];
 
+            
             NSArray *invoices = [[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"];
+            
+            NSLog(@"Invoice count: %d", [invoices count]);
+            
             
             for (int i = 0; i < [invoices count]; i++) {
                 
@@ -78,12 +85,14 @@
                 myInvoice.status = [theInvoice valueForKey:@"Status"];
                 myInvoice.number = [theInvoice valueForKey:@"Number"];
                 myInvoice.merchantId = [[theInvoice valueForKey:@"MerchantId"] intValue];
-                myInvoice.customerId = [[theInvoice valueForKey:@"CustomerId"] intValue];
+                //myInvoice.customerId = [[theInvoice valueForKey:@"CustomerId"] intValue];
                 myInvoice.posi = [theInvoice valueForKey:@"POSI"];
                 
                 myInvoice.baseAmount = [[theInvoice valueForKey:@"BaseAmount"] doubleValue];
-                myInvoice.serviceCharge = [[theInvoice valueForKey:@"ServiceCharge"] doubleValue];
                 myInvoice.tax = [[theInvoice valueForKey:@"Tax"] doubleValue];
+
+                
+                myInvoice.serviceCharge = [[theInvoice valueForKey:@"ServiceCharge"] doubleValue];
                 myInvoice.discount = [[theInvoice valueForKey:@"Discount"] doubleValue];
                 myInvoice.additionalCharge = [[theInvoice valueForKey:@"AdditionalCharge"] doubleValue];
                 
@@ -141,7 +150,7 @@
 -(void)setArrays{
     
     self.typeFilterInvoicesArray = [NSMutableArray array];
-    if (self.segmentControl.selectedSegmentIndex == 0) {
+    if (self.segControl.selectedSegmentIndex == 0) {
         
         for (int i = 0; i < [self.allInvoicesArray count]; i++) {
             Invoice *tmp = [self.allInvoicesArray objectAtIndex:i];
@@ -150,11 +159,11 @@
             }
         }
         
-    }else if (self.segmentControl.selectedSegmentIndex == 1){
+    }else if (self.segControl.selectedSegmentIndex == 1){
         
         for (int i = 0; i < [self.allInvoicesArray count]; i++) {
             Invoice *tmp = [self.allInvoicesArray objectAtIndex:i];
-            if ([tmp.status isEqualToString:@"INVOICE_PAID"]) {
+            if ([tmp.status isEqualToString:@"INVOICE_PAID"] || [tmp.status isEqualToString:@"INVOICE_PAID_IN_FULL"]) {
                 [self.typeFilterInvoicesArray addObject:tmp];
             }
         }
@@ -182,23 +191,40 @@
         [self.navigationController dismissModalViewControllerAnimated:NO];
     }
 }
+
+-(void)refreshList:(NSNotification *)notification{
+    [self refresh];
+}
 -(void)viewDidLoad{
     
     [super viewDidLoad];
     
-      self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshList:)
+                                                 name:UIApplicationDidBecomeActiveNotification object:nil];
+
     
-    self.toolbar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
-    self.searchBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
+    self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.topLineView.layer.shadowRadius = 2;
+    self.topLineView.layer.shadowOpacity = 0.4;
     
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = self.view.bounds;
-    UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
-    double x = 2.0;
     
-    UIColor *otherColor = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/155.0 blue:192.0*x/255.0 alpha:1.0];
-    gradient.colors = [NSArray arrayWithObjects:(id)[otherColor CGColor], (id)[myColor CGColor], nil];
-    [self.view.layer insertSublayer:gradient atIndex:0];
+
+    self.topLineView.backgroundColor = dutchTopLineColor;
+    self.bottomLineView.backgroundColor = dutchTopLineColor;
+    
+    self.myTableView.backgroundColor = [UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:248.0/255.0 alpha:1.0];
+    self.view.backgroundColor = dutchTopNavColor;
+    self.segControl.tintColor = dutchDarkBlueColor;
+    
+    for (UIView *subview in self.searchBar.subviews)
+    {
+        if ([subview isKindOfClass:NSClassFromString(@"UISearchBarBackground")])
+        {
+            [subview removeFromSuperview];
+            break;
+        }
+    }
     
     self.navigationItem.rightBarButtonItem = nil;
     
@@ -277,6 +303,11 @@
     UIImageView *imageView = (UIImageView *)[cell.contentView viewWithTag:7];
 
     backView.backgroundColor = [UIColor whiteColor];
+    backView.layer.borderColor = [dutchTopLineColor CGColor];
+    backView.layer.borderWidth = 1.0;
+    backView.layer.shadowOffset = CGSizeMake(0, 1);
+    backView.layer.shadowRadius = 2;
+    backView.layer.shadowOpacity = 0.4;
     
     if ([self.filterInvoicesArray count] == 0) {
         
@@ -363,6 +394,9 @@
     [self setDoneSearchButton:nil];
     [self setToolbar:nil];
     [self setErrorLabel:nil];
+    [self setTopLineView:nil];
+    [self setBottomLineView:nil];
+    [self setSegControl:nil];
     [super viewDidUnload];
 }
 - (IBAction)doneSearchAction:(id)sender {

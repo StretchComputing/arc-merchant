@@ -12,11 +12,24 @@
 #import "UIDevice-Hardware.h"
 #import "rSkybox.h"
 
+UIColor *dutchLightBlueColor;
+UIColor *dutchDarkBlueColor;
+UIColor *dutchGreenColor;
+UIColor *dutchTopLineColor;
+UIColor *dutchTopNavColor;
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    dutchLightBlueColor = [UIColor colorWithRed:11.0/255.0 green:132.0/255.0 blue:255.0/255.0 alpha:1.0];
+    dutchDarkBlueColor = [UIColor colorWithRed:0.0/255.0 green:48.0/255.0 blue:170.0/255.0 alpha:1.0];
+    dutchGreenColor = [UIColor colorWithRed:17.0/255.0 green:196.0/255.0 blue:29.0/215.0 alpha:1];
+    dutchTopLineColor = [UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0];
+    dutchTopNavColor = [UIColor colorWithRed:228.0/255.0 green:228.0/255.0 blue:228.0/255.0 alpha:1.0];
+    
+    
      [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
     
     // one reason this method is called is if a push notification is received while the app is in the background
@@ -136,6 +149,7 @@
 
 // *** for rSkybox
 - (void) handleCrashReport {
+    
     PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter];
     NSData *crashData;
     NSError *error;

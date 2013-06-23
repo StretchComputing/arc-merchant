@@ -60,6 +60,8 @@
 - (void)viewDidLoad
 {
     @try {
+        
+        self.signInButton.text = @"Sign In";
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signInComplete:) name:@"signInNotification" object:nil];
         
         self.myTableView.delegate = self;
@@ -94,11 +96,9 @@
         // Do any additional setup after loading the view, typically from a nib.
         
         
-        CAGradientLayer *gradient = [CAGradientLayer layer];
-        gradient.frame = self.view.bounds;
-        UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
-        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
-        [self.view.layer insertSublayer:gradient atIndex:0];
+        self.topLineView.backgroundColor = dutchTopLineColor;
+        self.backView.backgroundColor = dutchTopNavColor;
+        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ViewController.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -115,7 +115,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -317,4 +317,10 @@
 }
 
 
+- (void)viewDidUnload {
+    [self setBackView:nil];
+    [self setTopLineView:nil];
+    [self setSignInButton:nil];
+    [super viewDidUnload];
+}
 @end

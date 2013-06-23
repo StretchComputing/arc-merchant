@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+
+extern UIColor *dutchLightBlueColor;
+extern UIColor *dutchDarkBlueColor;
+extern UIColor *dutchGreenColor;
+extern UIColor *dutchTopLineColor;
+extern UIColor *dutchTopNavColor;
+
+
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

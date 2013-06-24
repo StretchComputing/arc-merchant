@@ -11,6 +11,7 @@
 #import "ArcClient.h"
 #import <QuartzCore/QuartzCore.h>
 #import "AppDelegate.h"
+#import "NVUIGradientButton.h"
 
 @interface EditServerController ()
 
@@ -75,7 +76,30 @@
 }
 
 
+
+
 -(void)viewDidLoad{
+    
+    
+    
+    self.title = @"";
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    titleLabel.text = @"Edit Server";
+    titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:21];
+    titleLabel.textColor = [UIColor blackColor];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.textAlignment = UITextAlignmentCenter;
+    self.navigationItem.titleView = titleLabel;
+    
+    self.navigationController.navigationBar.tintColor = dutchTopNavColor;
+    
+    self.view.backgroundColor = [UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0];
+
+    
+
+    
+    
     
     
     self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
@@ -95,7 +119,6 @@
     //CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Edit Server"];
     //self.navigationItem.titleView = navLabel;
     
-    self.toolbar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
 
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setServerComplete:) name:@"setServerNotification" object:nil];
@@ -114,14 +137,22 @@
     }
     
     
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = self.view.bounds;
-    self.view.backgroundColor = [UIColor clearColor];
-    UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
-    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
-    [self.view.layer insertSublayer:gradient atIndex:0];
+    NVUIGradientButton *myButton = [[NVUIGradientButton alloc] initWithFrame:CGRectMake(0, 6, 60, 32)];
+    myButton.text = @"Back";
+    [myButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *homeButton = [[UIBarButtonItem alloc] initWithCustomView:myButton];
+    
+    self.navigationItem.leftBarButtonItem = homeButton;
+    
+    
+    
+   
 }
 
+-(void)goBack{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 -(void)cancel{
     [self dismissModalViewControllerAnimated:YES];
 }

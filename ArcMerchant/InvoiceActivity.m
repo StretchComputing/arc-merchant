@@ -31,13 +31,25 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invoiceComplete:) name:@"invoiceNotification" object:nil];
     
-    NSDictionary *loginDict = [[NSDictionary alloc] init];
-    ArcClient *client = [[ArcClient alloc] init];
-    [self.activity startAnimating];
-    [client getInvoice:loginDict];
+    [self refresh];
 }
 
 -(void)refresh{
+    
+    self.refreshButton.hidden = YES;
+    self.iconImageView.hidden = NO;
+    
+    
+    CABasicAnimation* rotationAnimation;
+    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 ];
+    rotationAnimation.duration = 2.0;
+    rotationAnimation.cumulative = YES;
+    rotationAnimation.repeatCount = 200.0;
+    
+    [self.iconImageView.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+    
+    
     
     NSDictionary *loginDict = [[NSDictionary alloc] init];
     ArcClient *client = [[ArcClient alloc] init];
@@ -48,6 +60,11 @@
     
     
     
+    
+    [self.iconImageView.layer removeAllAnimations];
+
+    self.refreshButton.hidden = NO;
+    self.iconImageView.hidden = YES;
     [self.activity stopAnimating];
     [self.refreshControl endRefreshing];
 
@@ -73,6 +90,10 @@
             
             NSLog(@"Invoice count: %d", [invoices count]);
             
+            
+            if ([invoices count] == 0) {
+                errorMsg = @"No open dutch invoices found.";
+            }
             
             for (int i = 0; i < [invoices count]; i++) {
                 
@@ -121,7 +142,7 @@
         } else if([status isEqualToString:@"error"]){
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
             if(errorCode == 101 || errorCode == 100) {
-                errorMsg = @"No open Invoices Found.";
+                errorMsg = @"No open dutch invoices found.";
             } else {
                 errorMsg = ARC_ERROR_MSG;
             }
@@ -199,6 +220,8 @@
     
     [super viewDidLoad];
     
+    self.cancelSearchButton.text = @"Cancel";
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refreshList:)
                                                  name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -244,8 +267,7 @@
 
 -(void)handleRefresh:(id)sender{
     
-    ArcClient *client = [[ArcClient alloc] init];
-    [client getInvoice:[NSDictionary dictionary]];
+    [self refresh];
     
 }
 
@@ -363,6 +385,7 @@
 
 }
 
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     
     self.filterInvoicesArray = [NSMutableArray array];
@@ -386,19 +409,40 @@
    
 }
 
+-(void)cancelSearchAction{
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        CGRect frame = self.searchBar.frame;
+        frame.size.width = 320;
+        self.searchBar.frame = frame;
+        
+        self.cancelSearchButton.hidden = YES;
+    }];
+    
+    [self.searchBar resignFirstResponder];
+    self.searchBar.text = @"";
+}
+
+
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        CGRect frame = self.searchBar.frame;
+        frame.size.width = 240;
+        self.searchBar.frame = frame;
+        
+        self.cancelSearchButton.hidden = NO;
+    }];
+    
+    
+}
 - (IBAction)segmentValueChanged {
     self.searchBar.text = @"";
     [self setArrays];
 }
-- (void)viewDidUnload {
-    [self setDoneSearchButton:nil];
-    [self setToolbar:nil];
-    [self setErrorLabel:nil];
-    [self setTopLineView:nil];
-    [self setBottomLineView:nil];
-    [self setSegControl:nil];
-    [super viewDidUnload];
-}
+
 - (IBAction)doneSearchAction:(id)sender {
     self.searchBar.text = @"";
     [self.searchBar resignFirstResponder];
@@ -406,9 +450,12 @@
     [self setArrays];
 }
 
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+- (IBAction)goSettings {
+    [self performSegueWithIdentifier:@"goSettings" sender:self];
+}
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneSearchAction:)];
-        
+- (IBAction)refreshAction {
+    
+    [self refresh];
 }
 @end

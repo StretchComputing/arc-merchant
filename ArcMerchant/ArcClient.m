@@ -11,8 +11,8 @@
 #import "AppDelegate.h"
 #import "rSkybox.h"
 
-NSString *_arcUrl = @"http://dev.dagher.mobi/rest/v1/";       //DEV - Cloud
-//NSString *_arcUrl = @"http://arc.dagher.mobi/rest/v1/";           // CLOUD
+//NSString *_arcUrl = @"http://dev.dagher.mobi/rest/v1/";       //DEV - Cloud
+NSString *_arcUrl = @"http://arc.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 //NSString *_arcUrl = @"http://dtnetwork.asuscomm.com:8700/arc-dev/rest/v1/";
 
@@ -47,7 +47,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-          // _arcUrl = [NSString stringWithFormat:@"http://%@/rest/v1/", [prefs valueForKey:@"arcUrl"]];
+           _arcUrl = [NSString stringWithFormat:@"http://%@/rest/v1/", [prefs valueForKey:@"arcUrl"]];
             NSLog(@"ArcURL: %@", _arcUrl);
 
         }
@@ -71,7 +71,6 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setHTTPMethod: @"GET"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-        NSLog(@"Auth Header: %@", [self authHeader]);
         
         if (![[self authHeader] isEqualToString:@""]) {
             [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
@@ -79,7 +78,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetServer"];
-       // self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+        self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.getServer" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -138,7 +137,6 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-        
         NSLog(@"RequestSTring: %@", requestString);
         
         NSLog(@"URL: %@", getCustomerTokenUrl);
@@ -188,8 +186,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         api = GetInvoice;
         
         NSDate *now = [NSDate date];
-        NSDate *yest = [now dateByAddingTimeInterval:-129600];
-        //NSDate *yest = [now dateByAddingTimeInterval:-260000];
+        //NSDate *yest = [now dateByAddingTimeInterval:-129600];
+        NSDate *yest = [now dateByAddingTimeInterval:-86400];
 
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS"];
@@ -201,12 +199,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
         [dictionary setValue:yestString forKey:@"StartDate"];
         [dictionary setValue:nowString forKey:@"EndDate"];
+        [dictionary setValue:[NSNumber numberWithBool:NO] forKey:@"POS"];
         [dictionary setValue:[[NSUserDefaults standardUserDefaults] valueForKey:@"merchantId"] forKey:@"MerchantId"];
-
-        
-        
-        NSNumber *pos = [NSNumber numberWithBool:YES];
-        [dictionary setValue:pos forKey:@"POS"];
         
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [dictionary JSONRepresentation], nil];
@@ -352,7 +346,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         api = GetListOfServers;
         
         
-        NSString *pingUrl = @"http://arc-servers.dagher.net.co/rest/v1/servers/list";
+        NSString *pingUrl = [NSString stringWithFormat:@"%@servers/list", _arcServersUrl];
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:pingUrl]];
         
@@ -1047,7 +1041,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSString *customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"managerId"];
         
-        NSString *createUrl = [NSString stringWithFormat:@"http://arc-servers.dagher.net.co/rest/v1/servers/%@/setserver/%@", customerId, serverNumber];
+        NSString *createUrl = [NSString stringWithFormat:@"%@servers/%@/setserver/%@", _arcServersUrl, customerId, serverNumber];
         
         //NSLog(@"CreateUrl: %@", createUrl);
         

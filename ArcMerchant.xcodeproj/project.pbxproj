@@ -74,6 +74,8 @@
 		90CBF9DD17772FD200A303DC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CBF9DA17772FD200A303DC /* Default-568h@2x.png */; };
 		90CBF9DE17772FD200A303DC /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CBF9DB17772FD200A303DC /* Default.png */; };
 		90CBF9DF17772FD200A303DC /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CBF9DC17772FD200A303DC /* Default@2x.png */; };
+		90CBF9E11777D2E300A303DC /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CBF9E01777D2E300A303DC /* refresh.png */; };
+		90CBF9E31777D73100A303DC /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CBF9E21777D73100A303DC /* settings.png */; };
 		90E41E8C16815AD500257343 /* EditServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E41E8B16815AD500257343 /* EditServerController.m */; };
 		90E41E9616815C6400257343 /* blueCheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E41E9516815C6400257343 /* blueCheck.png */; };
 		9FEB3258163E1895009FE7D9 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEB3257163E1895009FE7D9 /* UIDevice-Hardware.m */; };
@@ -201,6 +203,8 @@
 		90CBF9DA17772FD200A303DC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		90CBF9DB17772FD200A303DC /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		90CBF9DC17772FD200A303DC /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		90CBF9E01777D2E300A303DC /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
+		90CBF9E21777D73100A303DC /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		90E41E8A16815AD500257343 /* EditServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditServerController.h; sourceTree = "<group>"; };
 		90E41E8B16815AD500257343 /* EditServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditServerController.m; sourceTree = "<group>"; };
 		90E41E9516815C6400257343 /* blueCheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueCheck.png; sourceTree = "<group>"; };
@@ -282,6 +286,7 @@
 				902E01C516226B090013CB73 /* InitialController.m */,
 				9012BA821620C49D00B1CE62 /* InvoiceDetails.h */,
 				9012BA831620C49D00B1CE62 /* InvoiceDetails.m */,
+				90CBF9E21777D73100A303DC /* settings.png */,
 				902E01B816224E2B0013CB73 /* RefundButton.h */,
 				902E01B916224E2B0013CB73 /* RefundButton.m */,
 				9012BA781620901E00B1CE62 /* Invoice.h */,
@@ -307,6 +312,7 @@
 				9014225A161782DA0051D913 /* RegisterDwollaView.m */,
 				906C813415FD6E270012AC9D /* ArcClient.h */,
 				906C813515FD6E270012AC9D /* ArcClient.m */,
+				90CBF9E01777D2E300A303DC /* refresh.png */,
 				906C816E15FD6FE60012AC9D /* rSkybox.h */,
 				906C816F15FD6FE60012AC9D /* rSkybox.m */,
 				906C817115FD70090012AC9D /* UIDevice-Hardware.h */,
@@ -474,6 +480,8 @@
 				90CBF9DD17772FD200A303DC /* Default-568h@2x.png in Resources */,
 				90CBF9DE17772FD200A303DC /* Default.png in Resources */,
 				90CBF9DF17772FD200A303DC /* Default@2x.png in Resources */,
+				90CBF9E11777D2E300A303DC /* refresh.png in Resources */,
+				90CBF9E31777D73100A303DC /* settings.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

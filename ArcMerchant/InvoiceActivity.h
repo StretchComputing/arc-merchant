@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NVUIGradientButton.h"
 
 @interface InvoiceActivity : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -21,11 +22,17 @@
 @property (nonatomic, strong) NSMutableArray *typeFilterInvoicesArray;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *cancelSearchButton;
+-(IBAction)cancelSearchAction;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property BOOL isIos6;
 @property (strong, nonatomic) IBOutlet UIView *bottomLineView;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segControl;
+- (IBAction)goSettings;
+@property (strong, nonatomic) IBOutlet UIButton *refreshButton;
+- (IBAction)refreshAction;
+@property (strong, nonatomic) IBOutlet UIImageView *iconImageView;
 
 @property (strong, nonatomic) IBOutlet UIView *topLineView;
 - (IBAction)segmentValueChanged;

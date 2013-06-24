@@ -22,6 +22,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     @try {
         
+        self.navigationController.navigationBar.tintColor = dutchTopNavColor;
+        
         ArcClient *tmp = [[ArcClient alloc] init];
         if (![tmp admin]) {
             self.changeServerButton.hidden = YES;
@@ -74,19 +76,36 @@
 {
     @try {
         
+        self.title = @"";
+        self.changeServerButton.text = @"View/Change Server";
         [super viewDidLoad];
+        
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+        titleLabel.text = @"Settings";
+        titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:21];
+        titleLabel.textColor = [UIColor blackColor];
+        titleLabel.backgroundColor = [UIColor clearColor];
+        titleLabel.textAlignment = UITextAlignmentCenter;
+        self.navigationItem.titleView = titleLabel; 
         
         self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
         
         UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
-        CAGradientLayer *gradient = [CAGradientLayer layer];
-        gradient.frame = backView.bounds;
-        UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
-        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
-        [backView.layer insertSublayer:gradient atIndex:0];
+        backView.backgroundColor = [UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0];
         
         self.tableView.backgroundView = backView;
         [rSkybox addEventToSession:@"viewSettings"];
+        
+        
+        
+        NVUIGradientButton *myButton = [[NVUIGradientButton alloc] initWithFrame:CGRectMake(0, 4, 75, 36)];
+        myButton.text = @"Home";
+        [myButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIBarButtonItem *homeButton = [[UIBarButtonItem alloc] initWithCustomView:myButton];
+        
+        self.navigationItem.leftBarButtonItem = homeButton;
+        
         
         
         
@@ -115,6 +134,10 @@
     }
 }
 
+-(void)goBack{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+
+}
 - (IBAction)cancelAction:(id)sender {
     @try {
         
@@ -126,6 +149,8 @@
 }
 
 - (IBAction)changeServerAction {
+    
+    [self performSegueWithIdentifier:@"goServer" sender:self];
 }
 
 
@@ -175,15 +200,5 @@
 }
 
 
-- (void)viewDidUnload {
-    [self setChangeServerButton:nil];
-    @try {
-        
-        [self setDwollaAuthSwitch:nil];
-        [super viewDidUnload];
-        
-    } @catch (NSException *e) {
-        [rSkybox sendClientLog:@"Settings.viewDidUnload" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-    }
-}
+
 @end

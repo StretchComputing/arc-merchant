@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NVUIGradientButton.h"
 
 @interface Settings : UITableViewController
 - (IBAction)cancelAction:(id)sender;
 - (IBAction)changeServerAction;
 
-@property (weak, nonatomic) IBOutlet UIButton *changeServerButton;
+@property (weak, nonatomic) IBOutlet NVUIGradientButton *changeServerButton;
 @property (weak, nonatomic) IBOutlet UISwitch *dwollaAuthSwitch;
 - (IBAction)dwollaAuthSwitchSelected;
 @property BOOL fromDwolla;
